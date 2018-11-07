@@ -6,17 +6,24 @@ import { AppComponent } from './app.component';
 import {InputTextModule} from 'primeng/components/inputtext/inputtext';
 import {ButtonModule} from 'primeng/components/button/button';
 import {DataTableModule} from 'primeng/components/datatable/datatable';
+import {TooltipModule} from 'primeng/components/tooltip/tooltip';
+import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pesquisa.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LancamentoPesquisaComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     InputTextModule,
     ButtonModule,
-    DataTableModule
+    DataTableModule,
+    TooltipModule
+
 
   ],
   providers: [],
