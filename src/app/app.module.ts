@@ -11,6 +11,7 @@ import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pe
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { CampoColoridoDirective } from './campo-colorido.directive';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CampoColoridoDirective } from './campo-colorido.directive';
     InputTextModule,
     ButtonModule,
     TooltipModule,
-    TableModule
+    TableModule,
+    FormsModule
 
 
   ],
