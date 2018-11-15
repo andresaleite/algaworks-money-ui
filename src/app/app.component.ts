@@ -9,9 +9,10 @@ import { NgForm } from '@angular/forms';
 export class AppComponent {
 
   profissoes = ['Programador', 'Empresario', 'Outro'];
+  profissaoIncial = 'Outro';
   salvar(form: NgForm) {
     console.log('salvando');
-    console.log(form);
-    console.log(form.value.nome);
+    console.log(this.profissaoIncial);
+    console.log(form.value.profissao);
   }
 }

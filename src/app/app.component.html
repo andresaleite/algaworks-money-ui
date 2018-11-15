@@ -17,7 +17,7 @@
 
      <div class="form-group">
         <label class="form-control-label">Profissão</label>
-        <select class="form-control" ngModel name="profissao">
+        <select class="form-control" [ngModel]="profissaoIncial" name="profissao">
           <option value="">Selecione</option>
           <option *ngFor="let profissao of profissoes">{{profissao}}</option>
 
