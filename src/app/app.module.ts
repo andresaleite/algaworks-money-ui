@@ -5,28 +5,30 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {InputTextModule} from 'primeng/components/inputtext/inputtext';
 import {ButtonModule} from 'primeng/components/button/button';
-
 import {TableModule} from 'primeng/components/table/table';
 import {TooltipModule} from 'primeng/components/tooltip/tooltip';
 import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
+import { CampoColoridoDirective } from './campo-colorido.directive';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LancamentoPesquisaComponent,
     NavbarComponent,
-    PessoaPesquisaComponent
+    PessoaPesquisaComponent,
+    CampoColoridoDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     InputTextModule,
     ButtonModule,
-    // DataTableModule,
     TooltipModule,
-    TableModule
+    TableModule,
+    FormsModule
 
 
   ],

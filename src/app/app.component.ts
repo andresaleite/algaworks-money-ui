@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  salvar(form: NgForm) {
+    console.log('salvando');
+    console.log(form);
+    console.log(form.value.nome);
+  }
 }
