@@ -7,22 +7,26 @@
     <div class="ui-g">
   <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)">
 
-    <div class="alert alert-danger" *ngIf="usuarioForm.invalid">
+    <div class="alert alert-danger" *ngIf="usuarioForm.invalid && usuarioForm.touched" >
       Preencha todos os campos corretamente.
     </div>
     <div class="form-group">
       <label class="form-control-label">Nome</label>
       <input type="text" class="form-control" [(ngModel)]="cliente.nome" name="primeiroNome" required minlength="3"  pattern="[a-zA-Z ]*"
        #nome="ngModel" >
-      <div *ngIf="nome.hasError('required')" > Digite o Nome</div>
-      <div *ngIf="nome.hasError('minlength')" > Mínimo 3 caracteres</div>
-      <div *ngIf="nome.hasError('pattern')" > Apenas letras</div>
+      <div *ngIf="nome.hasError('required') && nome.touched" > Digite o Nome</div>
+      <div *ngIf="nome.hasError('minlength') && nome.touched" > Mínimo 3 caracteres</div>
+      <div *ngIf="nome.hasError('pattern') && nome.touched" > Apenas letras</div>
+      <br>
+      Touched: {{nome.touched}}<br>
+      Pristine: {{nome.pristine}} <br>
+      Dirty: {{nome.dirty}}
     </div>
 
     <div class="form-group">
         <label class="form-control-label">Email</label>
         <input type="text" class="form-control" [(ngModel)]="cliente.email" name="e-mail" email #email="ngModel">
-        <div *ngIf="email.hasError('email')" > E-mail invalido</div>
+        <div *ngIf="email.hasError('email')  && nome.dirty" > E-mail invalido</div>
      </div>
 
      <div class="form-group">
