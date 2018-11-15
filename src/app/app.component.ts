@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { invalid } from '@angular/compiler/src/render3/view/util';
+import { removeDebugNodeFromIndex } from '@angular/core/src/debug/debug_node';
 
 class Cliente {
   nome: String;
@@ -21,3 +23,4 @@ export class AppComponent {
    console.log(this.cliente);
   }
 }
+
