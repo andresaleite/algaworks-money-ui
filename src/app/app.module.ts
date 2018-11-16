@@ -12,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { CampoColoridoDirective } from './campo-colorido.directive';
 import { FormsModule } from '@angular/forms';
+import { TestesFormComponent } from './testes-form/testes-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     LancamentoPesquisaComponent,
     NavbarComponent,
     PessoaPesquisaComponent,
-    CampoColoridoDirective
+    CampoColoridoDirective,
+    TestesFormComponent
   ],
   imports: [
     BrowserModule,
