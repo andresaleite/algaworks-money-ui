@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {InputTextModule} from 'primeng/components/inputtext/inputtext';
+import {InputTextareaModule} from 'primeng/components/inputtextarea/inputtextarea';
 import {ButtonModule} from 'primeng/components/button/button';
 import {TableModule} from 'primeng/components/table/table';
 import {TooltipModule} from 'primeng/components/tooltip/tooltip';
@@ -13,6 +14,7 @@ import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.compo
 import { CampoColoridoDirective } from './campo-colorido.directive';
 import { FormsModule } from '@angular/forms';
 import { TestesFormComponent } from './testes-form/testes-form.component';
+import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { TestesFormComponent } from './testes-form/testes-form.component';
     NavbarComponent,
     PessoaPesquisaComponent,
     CampoColoridoDirective,
-    TestesFormComponent
+    TestesFormComponent,
+    LancamentoCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -30,9 +33,8 @@ import { TestesFormComponent } from './testes-form/testes-form.component';
     ButtonModule,
     TooltipModule,
     TableModule,
-    FormsModule
-
-
+    FormsModule,
+    InputTextareaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
