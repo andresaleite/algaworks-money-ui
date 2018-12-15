@@ -18,6 +18,7 @@ import { TestesFormComponent } from './testes-form/testes-form.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import {CalendarModule} from 'primeng/calendar';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     FormsModule,
     InputTextareaModule,
     CalendarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
