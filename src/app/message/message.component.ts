@@ -1,5 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
+import { controlNameBinding } from '@angular/forms/src/directives/reactive_directives/form_control_name';
 
 @Component({
   selector: 'app-message',
@@ -21,7 +22,7 @@ export class MessageComponent   {
   @Input() text: string;
 
   temErro(): boolean {
-    return this.control.hasError(this.error) && this.control.dirty;
+    return this.control.hasError(this.error)  && this.control.dirty;
   }
 
 

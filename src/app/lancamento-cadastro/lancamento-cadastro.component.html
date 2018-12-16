@@ -9,7 +9,8 @@
         </div>
         <div class="ui-g-6 ui-md-3  ui-fluid">
           <label>Vencimento</label>
-          <p-calendar dateFormat="dd/mm/yy" [showIcon]=true></p-calendar>
+          <p-calendar dateFormat="dd/mm/yy" [showIcon]=true name="vencimento" ngModel #vencimento="ngModel" required></p-calendar>
+          <app-message [control]="vencimento" text="Informe a data de vencimento" error="required"></app-message>
         </div>
         <div class="ui-g-6 ui-md-3 ui-fluid">
             <label>{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
@@ -24,18 +25,23 @@
         </div>
         <div class="ui-g-12 ui-md-3 ui-fluid">
             <label>Valor</label>
-            <input pInputText type="text" placeholder="0,00" currencyMask name="valor" ngModel
+            <input pInputText type="text" placeholder="0,00" currencyMask name="valor" ngModel #valor="ngModel"
             [options]="{prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }">
+            <div *ngIf=" valor.dirty && (valor.value == undefined || valor.value == '')" class="ui-message ui-widget ui-corner-all ui-message-error ng-star-inserted">
+                Informe o valor
+              </div>
         </div>
         <div class="ui-g-12 ui-md-6 ui-fluid">
             <label>Categoria</label>
-            <p-dropdown [options]="categorias" [autoWidth]=false placeholder="Selecione"></p-dropdown>
+            <p-dropdown [options]="categorias" [autoWidth]=false placeholder="Selecione" name="categoria" ngModel #categoria="ngModel" required></p-dropdown>
+            <app-message [control]="categoria" error="required" text="Informe uma categoria"></app-message>
         </div>
         <div class="ui-g-12 ui-md-6 ui-fluid">
             <label>Pessoa</label>
-            <p-dropdown [options]="pessoas" placeholder="Selecione"
+            <p-dropdown [options]="pessoas" placeholder="Selecione" name="pessoa" ngModel #pessoa="ngModel" required
             [filter]="true"
             [autoWidth]=false></p-dropdown>
+            <app-message [control]="pessoa" error="required" text="Informe uma pessoa"></app-message>
         </div>
         <div class="ui-g-12 ui-fluid">
             <label>Observação</label>
