@@ -23,6 +23,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import {InputMaskModule} from 'primeng/inputmask';
 import { MessageComponent } from './message/message.component';
+import { LancamentoGridComponent } from './lancamento-grid/lancamento-grid.component';
+import { PessoaGridComponent } from './pessoa-grid/pessoa-grid.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MessageComponent } from './message/message.component';
     TestesFormComponent,
     LancamentoCadastroComponent,
     PessoaCadastroComponent,
-    MessageComponent
+    MessageComponent,
+    LancamentoGridComponent,
+    PessoaGridComponent
   ],
   imports: [
     BrowserModule,
