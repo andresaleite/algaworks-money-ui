@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
@@ -12,9 +12,9 @@ export class PessoaPesquisaComponent  {
     {nome: 'Jair Bolsonaro', cidade: 'Brasília', estado: 'DF', ativo: true},
     {nome: 'Carla Paz', cidade: 'Machacalis', estado: 'MG', ativo: true},
     {nome: 'Sérgio Daniel', cidade: 'Brasília', estado: 'DF', ativo: true},
-    {nome: 'Vilmar Andrade', cidade: 'Fortaleza', estado: 'CE', ativo: false}
-    {nome: 'Isadora Prates', cidade: 'Brasília', estado: 'DF', ativo: true}
-    {nome: 'Aline Menezes', cidade: 'Fortaleza', estado: 'CE', ativo: true}
+    {nome: 'Vilmar Andrade', cidade: 'Fortaleza', estado: 'CE', ativo: false},
+    {nome: 'Isadora Prates', cidade: 'Brasília', estado: 'DF', ativo: true},
+    {nome: 'Aline Menezes', cidade: 'Fortaleza', estado: 'CE', ativo: true},
     {nome: 'Maria Neuza Lopes Maciel', cidade: 'Fortaleza', estado: 'CE', ativo: true}
   ];
 }
