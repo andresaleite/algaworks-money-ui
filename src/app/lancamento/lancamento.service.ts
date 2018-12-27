@@ -16,9 +16,9 @@ export class LancamentoService {
   constructor(private http: Http) { }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
-    const headers1 = new Headers();
+    const header = new Headers();
     const params = new  URLSearchParams();
-    headers1.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     params.set('page', filtro.paginaAtual.toString());
     params.set('size', filtro.qtdPorPagina.toString());
     if (filtro.descricao) {
@@ -33,7 +33,7 @@ export class LancamentoService {
       params.set('dataAte', moment(filtro.dataAte).format('YYYY-MM-DD'));
     }
 
-    return this.http.get(`${this.url}?resumo`, {headers: headers1, search: params})
+    return this.http.get(`${this.url}?resumo`, {headers: header, search: params})
     .toPromise()
     .then(response => {
       const tudo = response.json();

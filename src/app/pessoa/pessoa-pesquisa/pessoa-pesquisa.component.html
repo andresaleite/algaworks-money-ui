@@ -1,4 +1,5 @@
 <div class="container">
+  <form (ngSubmit)="consultar()" >
     <div class="ui-g">
 
       <div class="ui-g-12">
@@ -7,16 +8,54 @@
 
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
-        <input type="text" name="" id="" pInputText >
+        <input type="text" name="nome" [(ngModel)]="filtro.nome" pInputText >
       </div>
       <div class="ui-g-12">
         <button pButton type="submit" label="Pesquisar"></button>
       </div>
     </div>
 
-    <app-pessoa-grid [pessoas]="pessoas"></app-pessoa-grid>
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <p-table [value]="pessoas" [paginator]="true" [rows]="filtro.qtdPorPagina" [responsive]="true"
+            [lazy]="true" [totalRecords]="totalRegistros" (onLazyLoad)="paginar($event)" >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>Status</th>
+                        <th class="col-acoes"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-pessoa>
+                  <tr>
+                    <td>{{pessoa.nome }}</td>
+                    <td>{{pessoa.cidade}}</td>
+                    <td>{{pessoa.estado }}</td>
+                    <td>{{pessoa.ativo === true ? 'Ativo' : 'Inativo' }}</td>
+                    <td>
+                        <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a> &nbsp;
+                        <a pButton icon="pi pi-trash" pTooltip="Excluir"  tooltipPosition="top"></a>
+                    </td>
+                  </tr>
+                 </ng-template>
+
+                 <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td colspan="5">
+                            Pessoa(s) não encontrada(s).
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+      </div>
+
 
     <div class="ui-g-12">
       <a pButton label="Nova Pessoa"></a>
-    </div>
-  </div>
+   </div>
+  </form>
+</div>

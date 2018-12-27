@@ -8,6 +8,7 @@ import { LancamentoModule } from './lancamento/lancamento.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
 import { LancamentoService } from './lancamento/lancamento.service';
+import { PessoaService } from './pessoa/pessoa.service';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { LancamentoService } from './lancamento/lancamento.service';
     CoreModule
 
   ],
-  providers: [LancamentoService],
+  providers: [LancamentoService, PessoaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

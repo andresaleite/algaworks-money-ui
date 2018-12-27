@@ -14,14 +14,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
-import { PessoaGridComponent } from './pessoa-grid/pessoa-grid.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     PessoaCadastroComponent,
-    PessoaPesquisaComponent,
-    PessoaGridComponent
+    PessoaPesquisaComponent
   ],
   imports: [
     CommonModule,
