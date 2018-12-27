@@ -8,25 +8,19 @@ import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 
 })
 export class LancamentoPesquisaComponent  implements OnInit {
+  filtro = new LancamentoFiltro();
   lancamentos = [];
-  descricao: string;
-  dataDe: Date;
-  dataAte: Date;
-
+  totalRegistros = 0;
   constructor(private lancamentoService: LancamentoService) { }
   ngOnInit() {
     this.consultar();
   }
 
   consultar() {
-    const filtro: LancamentoFiltro = {
-      descricao: this.descricao,
-      dataDe: this.dataDe,
-      dataAte: this.dataAte
-    };
-    console.log(filtro);
-    this.lancamentoService.consultar(filtro).then(response => {
-      this.lancamentos = response;
+    console.log(this.filtro);
+    this.lancamentoService.consultar(this.filtro).then(response => {
+      this.lancamentos = response.lancamentos;
+      this.totalRegistros = response.totalRegistros;
     });
   }
 
