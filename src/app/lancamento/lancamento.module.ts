@@ -18,14 +18,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pesquisa.component';
-import { LancamentoGridComponent } from './lancamento-grid/lancamento-grid.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     LancamentoCadastroComponent,
-    LancamentoPesquisaComponent,
-    LancamentoGridComponent
+    LancamentoPesquisaComponent
   ],
   imports: [
     CommonModule,
