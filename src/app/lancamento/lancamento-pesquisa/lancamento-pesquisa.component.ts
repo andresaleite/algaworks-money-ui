@@ -1,25 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { LancamentoService } from '../lancamento.service';
-
-export interface LancamentoFiltro{
-  descricao: string;
-}
+import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 
 @Component({
   selector: 'app-lancamento-pesquisa',
   templateUrl: './lancamento-pesquisa.component.html',
-  styleUrls: ['./lancamento-pesquisa.component.css']
+  styleUrls: ['./lancamento-pesquisa.component.css'],
+
 })
 export class LancamentoPesquisaComponent  implements OnInit {
   lancamentos = [];
   descricao: string;
+  dataDe: Date;
+  dataAte: Date;
+
   constructor(private lancamentoService: LancamentoService) { }
   ngOnInit() {
     this.consultar();
   }
 
   consultar() {
-    this.lancamentoService.consultar({descricao: this.descricao}).then(response => {
+    const filtro: LancamentoFiltro = {
+      descricao: this.descricao,
+      dataDe: this.dataDe,
+      dataAte: this.dataAte
+    };
+    console.log(filtro);
+    this.lancamentoService.consultar(filtro).then(response => {
       this.lancamentos = response;
     });
   }
