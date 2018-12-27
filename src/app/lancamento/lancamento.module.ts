@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CalendarModule } from 'primeng/calendar';
@@ -43,6 +44,8 @@ import { SharedModule } from '../shared/shared.module';
     CurrencyMaskModule,
     FormsModule,
     SharedModule
+
+
   ],
   exports: [
     LancamentoCadastroComponent,
