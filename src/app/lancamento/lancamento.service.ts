@@ -6,8 +6,8 @@ export class LancamentoFiltro {
   descricao: string;
   dataDe: Date;
   dataAte: Date;
-  pagina = 0;
-  tamanho = 3;
+  paginaAtual = 0;
+  qtdPorPagina = 2;
 }
 
 @Injectable()
@@ -19,8 +19,8 @@ export class LancamentoService {
     const headers1 = new Headers();
     const params = new  URLSearchParams();
     headers1.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    params.set('page', filtro.pagina.toString());
-    params.set('size', filtro.tamanho.toString());
+    params.set('page', filtro.paginaAtual.toString());
+    params.set('size', filtro.qtdPorPagina.toString());
     if (filtro.descricao) {
       params.set('descricao', filtro.descricao);
     }
