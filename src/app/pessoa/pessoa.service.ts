@@ -5,7 +5,7 @@ import { Http, Headers, URLSearchParams } from '@angular/http';
 export class PessoaFiltro {
   nome: string;
   paginaAtual = 0;
-  qtdPorPagina = 2;
+  qtdPorPagina = 3;
 
 }
 
@@ -42,5 +42,15 @@ export class PessoaService {
       return resultado;
 
     });
+  }
+
+
+  excluir(codigo: number): Promise<void> {
+    const head = new Headers();
+    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    return this.http.delete(`${this.urlPadrao}/${codigo}`, {headers: head})
+    .toPromise()
+    .then(() => null);
   }
 }

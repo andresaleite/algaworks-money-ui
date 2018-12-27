@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PessoaService, PessoaFiltro } from '../pessoa.service';
 import { LazyLoadEvent } from 'primeng/components/common/api';
 
@@ -11,6 +11,7 @@ export class PessoaPesquisaComponent {
   pessoas = [];
   filtro = new PessoaFiltro();
   totalRegistros = 0;
+  @ViewChild('tabela') tabela;
   constructor(private pessoaService: PessoaService) {}
 
 
@@ -26,6 +27,13 @@ export class PessoaPesquisaComponent {
   paginar(event: LazyLoadEvent) {
    const pagina = event.first / event.rows;
     this.consultar(pagina);
+  }
+
+  excluir(pessoa: any) {
+    this.pessoaService.excluir(pessoa.codigo).then(() => {
+      this.tabela.first = 0;
+      this.consultar();
+    });
   }
 
 }
