@@ -3,12 +3,14 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { ToastrModule } from 'ngx-toastr';
 
 import { LancamentoModule } from './lancamento/lancamento.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
 import { LancamentoService } from './lancamento/lancamento.service';
 import { PessoaService } from './pessoa/pessoa.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -18,10 +20,14 @@ import { PessoaService } from './pessoa/pessoa.service';
   imports: [
     BrowserModule,
     HttpModule,
+    BrowserAnimationsModule,
+
+    ToastrModule.forRoot(),
 
     LancamentoModule,
     PessoaModule,
-    CoreModule
+    CoreModule,
+
 
   ],
   providers: [LancamentoService, PessoaService],

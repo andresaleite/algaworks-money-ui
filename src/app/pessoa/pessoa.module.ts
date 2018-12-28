@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '../app-routing.module';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { ButtonModule } from 'primeng/components/button/button';
@@ -23,7 +22,6 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
     InputTextModule,
     ButtonModule,
