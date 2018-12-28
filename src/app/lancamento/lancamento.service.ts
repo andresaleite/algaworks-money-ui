@@ -47,7 +47,7 @@ export class LancamentoService {
 
     })
     .catch(
-      erro => { return Promise.reject(`Erro ao consultar Lançamentos`);
+      erro => { return Promise.reject(`Erro ao consultar lançamentos.`);
     });
   }
 

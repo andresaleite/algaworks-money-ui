@@ -5,7 +5,7 @@ import { Http, Headers, URLSearchParams } from '@angular/http';
 export class PessoaFiltro {
   nome: string;
   paginaAtual = 0;
-  qtdPorPagina = 3;
+  qtdPorPagina = 5;
 
 }
 
@@ -52,5 +52,18 @@ export class PessoaService {
     return this.http.delete(`${this.urlPadrao}/${codigo}`, {headers: head})
     .toPromise()
     .then(() => null);
+  }
+
+  mudarStatus(pessoa: any): Promise<string> {
+    const head = new Headers();
+    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    head.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}/ativo`, JSON.stringify(!pessoa.ativo), {headers: head})
+    .toPromise()
+    .then(() => 'O status foi alterado com sucesso.')
+    .catch(erro => {
+      return erro;
+    });
   }
 }

@@ -4,6 +4,7 @@ import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api'
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { TableRadioButton } from 'primeng/components/table/table';
+import { ErroService } from 'src/app/core/erro.service';
 
 
 @Component({
@@ -21,15 +22,22 @@ export class LancamentoPesquisaComponent {
   constructor(
     private lancamentoService: LancamentoService,
     private toastr: ToastrService,
-    private confirm: ConfirmationService) {}
+    private confirm: ConfirmationService,
+    private erroService: ErroService
+    ) {}
 
 
   consultar(pagina = 0) {
     this.filtro.paginaAtual = pagina;
     console.log(this.filtro);
-    this.lancamentoService.consultar(this.filtro).then(response => {
+    this.lancamentoService.consultar(this.filtro)
+    .then(
+      response => {
       this.lancamentos = response.lancamentos;
       this.totalRegistros = response.totalRegistros;
+    })
+    .catch(erro => {
+      this.erroService.handle(erro);
     });
   }
 
@@ -53,6 +61,9 @@ export class LancamentoPesquisaComponent {
       this.tabela.first = 0;
       this.consultar();
 
+    })
+    .catch(erro => {
+      this.erroService.handle(erro);
     });
   }
 
