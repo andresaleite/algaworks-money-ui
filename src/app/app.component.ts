@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-  import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+import { registerLocaleData } from '@angular/common';
+import localeBr from '@angular/common/locales/pt';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor(private toastr: ToastrService) {
+    registerLocaleData(localeBr, 'pt');
   }
 }
 

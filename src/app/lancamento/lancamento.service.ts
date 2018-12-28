@@ -46,8 +46,19 @@ export class LancamentoService {
       return resultado;
 
     })
-    .catch(erro => { return Promise.reject(`Erro ao consultar Lançamentos`);
-  });
+    .catch(
+      erro => { return Promise.reject(`Erro ao consultar Lançamentos`);
+    });
+  }
+
+  excluir(codigo: number): Promise<void> {
+    const header = new Headers();
+    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    return this.http.delete(`${this.url}/${codigo}`, {headers: header})
+    .toPromise()
+    .then(response => {
+      return null;
+    });
   }
 
 }

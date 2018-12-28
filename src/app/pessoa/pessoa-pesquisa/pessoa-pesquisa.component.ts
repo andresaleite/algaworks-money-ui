@@ -20,7 +20,6 @@ export class PessoaPesquisaComponent {
 
     ) {}
 
-
   consultar(pagina = 0) {
     this.filtro.paginaAtual = pagina;
     this.pessoaService.consultar(this.filtro).then(resposta => {

@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
-import {LazyLoadEvent} from 'primeng/components/common/api';
+import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { TableRadioButton } from 'primeng/components/table/table';
+
 
 @Component({
   selector: 'app-lancamento-pesquisa',
@@ -12,8 +16,13 @@ export class LancamentoPesquisaComponent {
   filtro = new LancamentoFiltro();
   lancamentos = [];
   totalRegistros = 0;
+  @ViewChild('tabela') tabela;
 
-  constructor(private lancamentoService: LancamentoService) { }
+  constructor(
+    private lancamentoService: LancamentoService,
+    private toastr: ToastrService,
+    private confirm: ConfirmationService) {}
+
 
   consultar(pagina = 0) {
     this.filtro.paginaAtual = pagina;
@@ -27,6 +36,24 @@ export class LancamentoPesquisaComponent {
   paginar(event: LazyLoadEvent ) {
     const pagina = event.first / event.rows;
     this.consultar(pagina);
+  }
+
+  confirmarExcluir(lancamento: any) {
+    this.confirm.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(lancamento.codigo);
+      }
+    });
+  }
+
+  excluir(codigo: number) {
+    this.lancamentoService.excluir(codigo).then(resp => {
+      this.toastr.success('Lançamento excluído com sucesso.');
+      this.tabela.first = 0;
+      this.consultar();
+
+    });
   }
 
 
