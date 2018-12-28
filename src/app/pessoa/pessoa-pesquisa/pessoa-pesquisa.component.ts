@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { PessoaService, PessoaFiltro } from '../pessoa.service';
-import { LazyLoadEvent } from 'primeng/components/common/api';
+import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/api';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,6 +16,8 @@ export class PessoaPesquisaComponent {
   constructor(
     private pessoaService: PessoaService,
     private toastr: ToastrService ,
+    private confirm: ConfirmationService ,
+
     ) {}
 
 
@@ -33,11 +35,19 @@ export class PessoaPesquisaComponent {
     this.consultar(pagina);
   }
 
-  excluir(pessoa: any) {
-    this.pessoaService.excluir(pessoa.codigo).then(() => {
+  confirmarExcluir(pessoa: any) {
+    this.confirm.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+          this.excluir(pessoa.codigo);
+        }
+      });
+    }
+
+  excluir(codigo: number) {
+    this.pessoaService.excluir(codigo).then(() => {
       this.tabela.first = 0;
       this.consultar();
-
       this.toastr.success('Pessoa excluída com sucesso.');
     });
   }
