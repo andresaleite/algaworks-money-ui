@@ -1,28 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from 'src/app/categoria/categoria.service';
+import { PessoaService, PessoaFiltro } from 'src/app/pessoa/pessoa.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
   templateUrl: './lancamento-cadastro.component.html',
   styleUrls: ['./lancamento-cadastro.component.css']
 })
-export class LancamentoCadastroComponent  {
+export class LancamentoCadastroComponent  implements OnInit {
+  categorias = [];
+  tipos = [];
+  pessoas = [];
 
-  tipos = [
-    {label: 'Receita', value: 'RECEITA'},
-    {label: 'Despesa', value: 'DESPESA'}
-  ];
+  constructor(
+    private categoriaService: CategoriaService,
+    private pessoaService: PessoaService) {}
 
-  categorias = [
-    {label: 'Selecione', value: null},
-    {label: 'Alimentacao', value: 1},
-    {label: 'Transporte', value: 2}
-  ];
-  pessoas = [
-    {label: 'Selecione', value: null},
-    {label: 'João de Tal', value: 1},
-    {label: 'Sebastião  tiao', value: 2},
-    {label: 'Maria Abadia', value: 3}
-  ];
+  ngOnInit() {
+    this.buscarCategorias();
+    this.buscarPessoas();
+  }
+
+  buscarCategorias() {
+    this.categoriaService.listar().then(lista => {
+      this.categorias = lista;
+    });
+  }
+
+  buscarPessoas() {
+    const filtro = new PessoaFiltro();
+    this.pessoaService.consultar(filtro, true).then(lista => {
+      this.pessoas = lista.pessoas;
+    });
+  }
+
+
+
 
 
 }

@@ -14,11 +14,14 @@ export class PessoaService {
   urlPadrao = 'http://localhost:8080/pessoas';
   constructor(private http: Http) { }
 
-  consultar(filtro: PessoaFiltro): Promise<any> {
+  consultar(filtro: PessoaFiltro, todos: boolean): Promise<any> {
     const head = new Headers();
     const param = new URLSearchParams();
 
     head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    if (todos) {
+      filtro.qtdPorPagina =  0;
+    }
     if (filtro.nome) {
       param.set('nome', filtro.nome);
     }
@@ -28,6 +31,7 @@ export class PessoaService {
     if (filtro.qtdPorPagina) {
       param.set('size', filtro.qtdPorPagina.toString());
     }
+
 
     return this.http.get(`${this.urlPadrao}?resumo`, {headers: head, search: param})
     .toPromise()
