@@ -40,9 +40,7 @@
         <div class="ui-g-12 ui-md-6 ui-fluid">
             <label>Pessoa</label>
             <p-dropdown [options]="pessoas" placeholder="Selecione"
-              name="pessoa" ngModel #pessoa="ngModel" required
-              optionLabel="nome" dataKey="codigo"
-            [filter]="true"
+              name="pessoa" ngModel #pessoa="ngModel" required [filter]="true"
             [autoWidth]=false></p-dropdown>
             <app-message [control]="pessoa" error="required" text="Informe uma pessoa"></app-message>
         </div>
