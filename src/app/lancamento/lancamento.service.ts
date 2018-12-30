@@ -1,3 +1,4 @@
+import { Lancamento } from './../core/model';
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import * as moment from 'moment/moment';
@@ -58,6 +59,19 @@ export class LancamentoService {
     .toPromise()
     .then(response => {
       return null;
+    });
+  }
+
+  novoLancamento(lancamento: Lancamento): Promise<any> {
+    const header = new Headers();
+    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    header.append('Content-Type', 'application/json');
+    return this.http.post(this.url, JSON.stringify(lancamento))
+    .toPromise()
+    .then(sucesso => {
+      return sucesso.json();
+    }).catch(erro => {
+      return erro.json();
     });
   }
 

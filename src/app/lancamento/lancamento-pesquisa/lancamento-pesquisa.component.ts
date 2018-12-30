@@ -1,9 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api';
-import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { TableRadioButton } from 'primeng/components/table/table';
 import { ErroService } from 'src/app/core/erro.service';
 
 
