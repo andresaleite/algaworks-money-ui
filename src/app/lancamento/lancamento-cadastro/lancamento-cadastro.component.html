@@ -34,9 +34,7 @@
         <div class="ui-g-12 ui-md-6 ui-fluid">
             <label>Categoria</label>
             <p-dropdown [options]="categorias" [autoWidth]=false placeholder="Selecione"
-            name="categoria" ngModel #categoria="ngModel" required
-            optionLabel="nome" dataKey="codigo"
-            ></p-dropdown>
+            name="categoria" ngModel #categoria="ngModel" required></p-dropdown>
             <app-message [control]="categoria" error="required" text="Informe uma categoria"></app-message>
         </div>
         <div class="ui-g-12 ui-md-6 ui-fluid">
