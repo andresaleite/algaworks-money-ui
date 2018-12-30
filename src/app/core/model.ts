@@ -16,7 +16,7 @@ export class Endereco {
 
 export class Lancamento {
   codigo: number;
-  tipo = 'RECEITA';
+  tipoLancamento = 'RECEITA';
   descricao: string;
   dataVencimento: Date;
   dataPagamento: Date;

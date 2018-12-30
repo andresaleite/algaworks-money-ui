@@ -62,11 +62,11 @@ export class LancamentoService {
     });
   }
 
-  novoLancamento(lancamento: Lancamento): Promise<any> {
+  novoLancamento(lancamento: Lancamento): Promise<Lancamento> {
     const header = new Headers();
     header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.url, JSON.stringify(lancamento))
+    return this.http.post(this.url, JSON.stringify(lancamento), {headers: header})
     .toPromise()
     .then(sucesso => {
       return sucesso.json();
