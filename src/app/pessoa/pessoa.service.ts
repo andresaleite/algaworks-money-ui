@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Pessoa } from '../core/model';
 
 
 export class PessoaFiltro {
@@ -70,4 +71,22 @@ export class PessoaService {
       return erro;
     });
   }
+
+  novaPessoa(pessoa: Pessoa): Promise<any> {
+    const head = new Headers();
+    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    head.append('Content-Type', 'application/json');
+    pessoa.ativo = true;
+      return this.http.post(
+        this.urlPadrao, JSON.stringify(pessoa),
+        {headers: head})
+        .toPromise()
+        .then(resposta => {
+          return resposta.json();
+        })
+        .catch(erro => {
+          return erro.json();
+        });
+
+}
 }

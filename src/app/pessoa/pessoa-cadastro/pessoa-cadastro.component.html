@@ -1,25 +1,25 @@
 <div class="container">
-  <form autocomplete="off">
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="novaPessoa(f)" >
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Nova Pessoa</h1>
       </div>
       <div class="ui-g-12 ui-fluid">
           <label>Nome</label>
-        <input pInputText type="text" name="nome" ngModel #nome="ngModel" required minlength="3">
-        <!-- <app-message [control]="nome" text="Informe o nome." error="required"></app-message>
-        <app-message [control]="nome" text="Mínimo de {{nome.errors?.minlength?.requiredLength}} caracteres. " error="minlength"></app-message> -->
+        <input pInputText type="text" name="nome" [(ngModel)]="pessoa.nome" #nome="ngModel" required minlength="3">
+        <app-message [control]="nome" text="Informe o nome." error="required"></app-message>
+        <app-message [control]="nome" text="Mínimo de {{nome.errors?.minlength?.requiredLength}} caracteres. " error="minlength"></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
           <label>Endereço</label>
-          <input pInputText type="text" name="endereco" ngModel #endereco="ngModel" required >
-          <!-- <app-message [control]="endereco" text="Informe o endereço." error="required"></app-message> -->
+          <input pInputText type="text" name="endereco" [(ngModel)]="pessoa.endereco.logradouro" #endereco="ngModel" required >
+          <app-message [control]="endereco" text="Informe o endereço." error="required"></app-message>
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>Número</label>
-          <input pInputText type="text" name="numero" ngModel #numero="ngModel" required >
-          <!-- <app-message [control]="numero" text="Informe o número." error="required"></app-message> -->
+          <input pInputText type="text" name="numero" [(ngModel)]="pessoa.endereco.numero" #numero="ngModel" required >
+          <app-message [control]="numero" text="Informe o número." error="required"></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
@@ -28,31 +28,31 @@
       </div>
       <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>Bairro</label>
-          <input pInputText type="text" name="bairro" ngModel #bairro="ngModel" required >
-          <!-- <app-message [control]="bairro" text="Informe o bairro." error="required"></app-message> -->
+          <input pInputText type="text" name="bairro" [(ngModel)]="pessoa.endereco.bairro" #bairro="ngModel" required >
+          <app-message [control]="bairro" text="Informe o bairro." error="required"></app-message>
       </div>
       <div class="ui-g-12 ui-md-4 ui-fluid">
           <label>CEP </label>
-          <p-inputMask  mask="99.999-999" name="cep" ngModel #cep="ngModel" required></p-inputMask>
-          <!-- <app-message [control]="cep" text="Informe o CEP." error="required"></app-message> -->
+          <p-inputMask  mask="99.999-999" name="cep" [(ngModel)]="pessoa.endereco.cep" #cep="ngModel" required></p-inputMask>
+          <app-message [control]="cep" text="Informe o CEP." error="required"></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
           <label>Cidade</label>
-          <input pInputText type="text" name="cidade" ngModel #cidade="ngModel" required >
-          <!-- <app-message [control]="cidade" text="Informe o cidade." error="required"></app-message> -->
+          <input pInputText type="text" name="cidade" [(ngModel)]="pessoa.endereco.cidade" #cidade="ngModel" required >
+         <app-message [control]="cidade" text="Informe o cidade." error="required"></app-message>
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>Estado</label>
-          <input pInputText type="text" name="estado" ngModel #estado="ngModel" required >
-          <!-- <app-message [control]="estado" text="Informe o estado." error="required"></app-message> -->
+          <input pInputText type="text" name="estado" [(ngModel)]="pessoa.endereco.estado" #estado="ngModel" required >
+          <app-message [control]="estado" text="Informe o estado." error="required"></app-message>
       </div>
 
 
       <div class="ui-g-12">
         <button pButton type="submit" label="Salvar"></button> &nbsp;
         <button pButton type="button" label="Novo" class="ui-button-info"></button> &nbsp;
-        <a href="javascriot:;">Voltar para a pesquisa</a>
+        <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>
