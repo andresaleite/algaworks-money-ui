@@ -1,6 +1,11 @@
+import { PessoaCadastroComponent } from './pessoa/pessoa-cadastro/pessoa-cadastro.component';
+import { PessoaPesquisaComponent } from './pessoa/pessoa-pesquisa/pessoa-pesquisa.component';
+import { LancamentoCadastroComponent } from './lancamento/lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentoPesquisaComponent } from './lancamento/lancamento-pesquisa/lancamento-pesquisa.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule} from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
@@ -9,15 +14,22 @@ import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+ const rotas: Routes = [
+   {path: 'lancamentos', component: LancamentoPesquisaComponent},
+   {path: 'lancamentos/novo', component: LancamentoCadastroComponent},
+   {path: 'pessoas', component: PessoaPesquisaComponent},
+   {path: 'pessoas/novo', component: PessoaCadastroComponent}
+ ];
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     HttpModule,
-    BrowserAnimationsModule,
+    RouterModule.forRoot(rotas),
 
     LancamentoModule,
     PessoaModule,

@@ -1,10 +1,6 @@
 <app-navbar></app-navbar>
-<!-- <app-lancamento-pesquisa></app-lancamento-pesquisa> -->
-  <br>
-<app-pessoa-pesquisa></app-pessoa-pesquisa>
- <!-- <app-lancamento-cadastro></app-lancamento-cadastro> -->
-<!-- <app-pessoa-cadastro></app-pessoa-cadastro> -->
-<br>
+<router-outlet></router-outlet>
+
 <p-confirmDialog header="CONFIRMAÇÃO" icon="pi pi-question-circle" #confirmacao>
     <p-footer>
         <button type="button" pButton icon="pi pi-times" label="Não" (click)="confirmacao.reject()"></button>
