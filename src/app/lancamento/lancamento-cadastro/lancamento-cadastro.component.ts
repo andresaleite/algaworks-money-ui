@@ -17,7 +17,6 @@ export class LancamentoCadastroComponent  implements OnInit {
   categorias = new Categoria();
   pessoas = new Pessoa();
   lancamento = new Lancamento();
-  telaAlterar = false;
   tipos =  [{label: 'Receita', value: 'RECEITA'},
   {label: 'Despesa', value: 'DESPESA'}];
 
@@ -30,7 +29,8 @@ export class LancamentoCadastroComponent  implements OnInit {
     private router: ActivatedRoute) {}
 
   ngOnInit() {
-    this.buscarUmLancamento(this.router.snapshot.params['codigo']);
+    this.lancamento.codigo = this.router.snapshot.params['codigo'];
+    this.buscarUmLancamento();
     this.buscarCategorias();
     this.buscarPessoas();
 
@@ -49,28 +49,25 @@ export class LancamentoCadastroComponent  implements OnInit {
     }).catch(erro => this.erroService.handle(erro));
   }
 
-  novoLancamento() {
+  novoLancamento(form: FormControl) {
     this.lancamentoService.novoLancamento(this.lancamento).then(sucesso => {
       this.toastr.success('Lancamento criado com sucesso');
+      form.reset();
     }).catch(erro => this.erroService.handle(erro));
   }
 
-  buscarUmLancamento(codigo: number) {
-    if (codigo) {
-      const lancamentoFiltro = new LancamentoFiltro();
-      this.lancamento.codigo =  codigo;
-      this.telaAlterar = true;
+  buscarUmLancamento() {
+    if (this.editar) {
       this.lancamentoService.consultarPorCodigo(this.lancamento.codigo)
       .then(lanc => {
         this.lancamento = lanc;
       });
-    } else {
-      this.telaAlterar = false;
     }
   }
 
   alterar() {
     this.lancamentoService.atualizar(this.lancamento).then(lanc => {
+      this.lancamento = lanc;
       this.toastr.success('Lançamento alterado com sucesso');
     }).catch(erro => {
       this.erroService.handle(erro);
@@ -78,10 +75,18 @@ export class LancamentoCadastroComponent  implements OnInit {
   }
 
   salvar(form: FormControl) {
-    if (this.telaAlterar) {
+    if (this.editar) {
       this.alterar();
     } else {
-      this.novoLancamento();
+      this.novoLancamento(form);
+    }
+  }
+
+  get editar() {
+    if (this.lancamento.codigo) {
+      return true;
+    } else {
+      return false;
     }
   }
 

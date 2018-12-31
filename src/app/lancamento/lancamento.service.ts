@@ -86,7 +86,8 @@ export class LancamentoService {
       {headers: header})
       .toPromise()
       .then(lanc => {
-        return lanc.json();
+        const retorno: Lancamento = this.converterStringParaData(lanc.json());
+        return retorno;
       })
       .catch(erro => {
         return erro.json();
