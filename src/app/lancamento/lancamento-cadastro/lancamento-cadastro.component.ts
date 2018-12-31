@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/categoria/categoria.service';
 import { PessoaService, PessoaFiltro } from 'src/app/pessoa/pessoa.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -27,9 +28,11 @@ export class LancamentoCadastroComponent  implements OnInit {
     private erroService: ErroService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private titulo: Title) {}
 
   ngOnInit() {
+    this.titulo.setTitle('Cadastro de Lançamento');
     this.lancamento.codigo = this.route.snapshot.params['codigo'];
     this.buscarUmLancamento();
     this.buscarCategorias();
@@ -62,6 +65,7 @@ export class LancamentoCadastroComponent  implements OnInit {
       this.lancamentoService.consultarPorCodigo(this.lancamento.codigo)
       .then(lanc => {
         this.lancamento = lanc;
+        this.atualizarTituloEdicao();
       });
     }
   }
@@ -70,6 +74,7 @@ export class LancamentoCadastroComponent  implements OnInit {
     this.lancamentoService.atualizar(this.lancamento).then(lanc => {
       this.lancamento = lanc;
       this.toastr.success('Lançamento alterado com sucesso');
+      this.atualizarTituloEdicao();
     }).catch(erro => {
       this.erroService.handle(erro);
     });
@@ -100,6 +105,10 @@ export class LancamentoCadastroComponent  implements OnInit {
       this.lancamento = new Lancamento();
     }.bind(this), 1);
 
+  }
+
+  atualizarTituloEdicao() {
+    this.titulo.setTitle(`Alterar de Lançamentos: ${this.lancamento.descricao}` );
   }
 
 }

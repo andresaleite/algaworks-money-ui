@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +12,7 @@ import { ErroService } from 'src/app/core/erro.service';
   styleUrls: ['./lancamento-pesquisa.component.css'],
 
 })
-export class LancamentoPesquisaComponent {
+export class LancamentoPesquisaComponent implements OnInit{
   filtro = new LancamentoFiltro();
   lancamentos = [];
   totalRegistros = 0;
@@ -22,9 +23,13 @@ export class LancamentoPesquisaComponent {
     private lancamentoService: LancamentoService,
     private toastr: ToastrService,
     private confirm: ConfirmationService,
-    private erroService: ErroService
+    private erroService: ErroService,
+    private titulo: Title
     ) {}
 
+  ngOnInit() {
+    this.titulo.setTitle('Pesquisa de lançamentos');
+  }
 
   consultar(pagina = 0) {
     this.filtro.paginaAtual = pagina;

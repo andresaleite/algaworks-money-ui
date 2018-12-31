@@ -1,6 +1,7 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { ToastrModule } from 'ngx-toastr';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
@@ -34,6 +35,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     ErroService,
     LancamentoService,
     PessoaService,
+
+    Title,
     ConfirmationService,
     {
       provide: LOCALE_ID, useValue: 'pt'
