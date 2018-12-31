@@ -75,4 +75,42 @@ export class LancamentoService {
     });
   }
 
+  atualizar(lancamento: Lancamento): Promise<Lancamento> {
+    const header = new Headers();
+    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    header.append('Content-Type', 'application/json');
+
+    return this.http.put(
+      `${this.url}/${lancamento.codigo}`,
+      JSON.stringify(lancamento),
+      {headers: header})
+      .toPromise()
+      .then(lanc => {
+        return lanc.json();
+      })
+      .catch(erro => {
+        return erro.json();
+      });
+  }
+
+  consultarPorCodigo(codigo: number): Promise<Lancamento> {
+    const header = new Headers();
+    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    return this.http.get(`${this.url}/${codigo}`,{headers: header}).toPromise()
+    .then(lanc => {
+      return lanc.json();
+    })
+    .catch(erro => {
+      return erro.json();
+    });
+  }
+
+  private converterStringParaData(lancamento: Lancamento) {
+    lancamento.dataPagamento = moment(lancamento.dataPagamento).toDate();
+    lancamento.dataVencimento = moment(lancamento.dataVencimento).toDate();
+
+    return lancamento;
+  }
+
 }

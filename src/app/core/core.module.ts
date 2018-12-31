@@ -12,7 +12,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ErroService } from './erro.service';
 
 
-
 @NgModule({
   declarations: [
     NavbarComponent

@@ -1,11 +1,12 @@
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { LancamentoService } from './../lancamento.service';
+import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Categoria, Pessoa, Lancamento } from './../../core/model';
 import { ErroService } from './../../core/erro.service';
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/categoria/categoria.service';
 import { PessoaService, PessoaFiltro } from 'src/app/pessoa/pessoa.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -24,9 +25,15 @@ export class LancamentoCadastroComponent  implements OnInit {
     private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
     private erroService: ErroService,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private router: ActivatedRoute) {}
 
   ngOnInit() {
+    // if (this.router.snapshot.params['codigo']) {
+    //   const lancamentoFiltro = new LancamentoFiltro();
+    //   lancamentoFiltro.codigo =  this.router.snapshot.params['codigo'];
+    //   this.lancamentoService.consultar()
+    // }
     this.buscarCategorias();
     this.buscarPessoas();
 
