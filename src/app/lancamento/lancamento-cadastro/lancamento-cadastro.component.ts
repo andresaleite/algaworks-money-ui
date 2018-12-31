@@ -1,12 +1,12 @@
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
+import { LancamentoService } from './../lancamento.service';
 import { Categoria, Pessoa, Lancamento } from './../../core/model';
 import { ErroService } from './../../core/erro.service';
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/categoria/categoria.service';
 import { PessoaService, PessoaFiltro } from 'src/app/pessoa/pessoa.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -26,10 +26,11 @@ export class LancamentoCadastroComponent  implements OnInit {
     private pessoaService: PessoaService,
     private erroService: ErroService,
     private toastr: ToastrService,
-    private router: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private router: Router) {}
 
   ngOnInit() {
-    this.lancamento.codigo = this.router.snapshot.params['codigo'];
+    this.lancamento.codigo = this.route.snapshot.params['codigo'];
     this.buscarUmLancamento();
     this.buscarCategorias();
     this.buscarPessoas();
@@ -50,9 +51,9 @@ export class LancamentoCadastroComponent  implements OnInit {
   }
 
   novoLancamento(form: FormControl) {
-    this.lancamentoService.novoLancamento(this.lancamento).then(sucesso => {
+    this.lancamentoService.novoLancamento(this.lancamento).then(lancSucesso => {
       this.toastr.success('Lancamento criado com sucesso');
-      form.reset();
+      this.router.navigate(['/lancamento', lancSucesso.codigo]);
     }).catch(erro => this.erroService.handle(erro));
   }
 
@@ -88,6 +89,17 @@ export class LancamentoCadastroComponent  implements OnInit {
     } else {
       return false;
     }
+  }
+
+  novo(form: FormControl) {
+    this.router.navigate(['/lancamento/novo']);
+
+    form.reset();
+
+    setTimeout(function() {
+      this.lancamento = new Lancamento();
+    }.bind(this), 1);
+
   }
 
 }

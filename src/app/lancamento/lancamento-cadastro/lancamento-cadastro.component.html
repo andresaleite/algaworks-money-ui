@@ -56,7 +56,8 @@
         </div>
         <div class="ui-g-12">
           <button pButton type="submit" label="Salvar"></button> &nbsp;
-          <button pButton type="button" label="Novo" class="ui-button-info" routerLink="/lancamento/novo"></button> &nbsp;
+          <button pButton type="button" label="Novo" class="ui-button-info"
+            (click)="novo(f)"></button> &nbsp;
           <a routerLink="/lancamentos">Voltar para a pesquisa</a>
         </div>
       </div>
