@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from '../app-routing.module';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { ButtonModule } from 'primeng/components/button/button';
 import { TooltipModule } from 'primeng/components/tooltip/tooltip';
@@ -14,6 +13,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { SharedModule } from '../shared/shared.module';
+import { PessoaRoutingModule } from './pessoa-routing.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
     InputTextModule,
     ButtonModule,
     TooltipModule,
@@ -34,7 +33,8 @@ import { SharedModule } from '../shared/shared.module';
     DropdownModule,
     InputMaskModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    PessoaRoutingModule
   ]
 })
 export class PessoaModule { }

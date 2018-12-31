@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Pessoa } from '../core/model';
+import { url } from 'inspector';
 
 
 export class PessoaFiltro {
@@ -87,6 +88,28 @@ export class PessoaService {
         .catch(erro => {
           return erro.json();
         });
+  }
 
-}
+  consultarPessoaPorCodigo(codigo: number): Promise<Pessoa> {
+    const head = new Headers();
+    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    return this.http.get(`${this.urlPadrao}/${codigo}`, {headers: head}).toPromise()
+    .then(resposta => {
+      return resposta.json();
+    }).catch(erro => {
+      return erro.json();
+    });
+  }
+
+  alterarPessoa(pessoa: Pessoa): Promise<Pessoa> {
+    const head = new Headers();
+    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    head.append('Content-Type', 'application/json');
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`,JSON.stringify(pessoa), {headers: head}).toPromise()
+    .then(resposta => {
+      return resposta.json();
+    }).catch(erro => {
+      return erro();
+    });
+  }
 }
