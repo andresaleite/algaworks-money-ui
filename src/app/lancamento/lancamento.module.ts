@@ -43,10 +43,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
 
 
-  ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentoPesquisaComponent
   ]
 })
 export class LancamentoModule { }

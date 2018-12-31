@@ -35,7 +35,6 @@ import { SharedModule } from '../shared/shared.module';
     InputMaskModule,
     FormsModule,
     SharedModule
-  ],
-  exports: [PessoaCadastroComponent, PessoaPesquisaComponent]
+  ]
 })
 export class PessoaModule { }

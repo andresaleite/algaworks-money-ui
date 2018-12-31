@@ -10,11 +10,13 @@ import { LancamentoService } from '../lancamento/lancamento.service';
 import { PessoaService } from '../pessoa/pessoa.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErroService } from './erro.service';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PaginaNaoEncontradaComponent
 
   ],
   imports: [
