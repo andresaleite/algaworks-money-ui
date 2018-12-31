@@ -11,13 +11,13 @@ import { TableModule } from 'primeng/components/table/table';
 import { TooltipModule } from 'primeng/components/tooltip/tooltip';
 import { ButtonModule } from 'primeng/components/button/button';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
-import { AppRoutingModule } from '../app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentoPesquisaComponent } from './lancamento-pesquisa/lancamento-pesquisa.component';
 import { SharedModule } from '../shared/shared.module';
+import { LancamentoRoutingModule } from './lancamento-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
+
     InputTextModule,
     ButtonModule,
     TooltipModule,
@@ -40,7 +40,8 @@ import { SharedModule } from '../shared/shared.module';
     DropdownModule,
     CurrencyMaskModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    LancamentoRoutingModule
 
 
   ]
