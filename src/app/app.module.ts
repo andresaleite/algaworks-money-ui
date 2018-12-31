@@ -15,6 +15,7 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
  const rotas: Routes = [
+   {path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
    {path: 'lancamentos', component: LancamentoPesquisaComponent},
    {path: 'lancamento/novo', component: LancamentoCadastroComponent},
    {path: 'lancamento/:codigo', component: LancamentoCadastroComponent},
