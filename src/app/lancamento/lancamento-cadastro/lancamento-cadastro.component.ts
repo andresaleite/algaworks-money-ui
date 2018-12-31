@@ -17,6 +17,7 @@ export class LancamentoCadastroComponent  implements OnInit {
   categorias = new Categoria();
   pessoas = new Pessoa();
   lancamento = new Lancamento();
+  telaAlterar = false;
   tipos =  [{label: 'Receita', value: 'RECEITA'},
   {label: 'Despesa', value: 'DESPESA'}];
 
@@ -29,11 +30,7 @@ export class LancamentoCadastroComponent  implements OnInit {
     private router: ActivatedRoute) {}
 
   ngOnInit() {
-    // if (this.router.snapshot.params['codigo']) {
-    //   const lancamentoFiltro = new LancamentoFiltro();
-    //   lancamentoFiltro.codigo =  this.router.snapshot.params['codigo'];
-    //   this.lancamentoService.consultar()
-    // }
+    this.buscarUmLancamento(this.router.snapshot.params['codigo']);
     this.buscarCategorias();
     this.buscarPessoas();
 
@@ -52,11 +49,40 @@ export class LancamentoCadastroComponent  implements OnInit {
     }).catch(erro => this.erroService.handle(erro));
   }
 
-  novoLancamento(form: FormControl) {
-    console.log(this.lancamento);   console.log(`ssss`);
+  novoLancamento() {
     this.lancamentoService.novoLancamento(this.lancamento).then(sucesso => {
       this.toastr.success('Lancamento criado com sucesso');
     }).catch(erro => this.erroService.handle(erro));
+  }
+
+  buscarUmLancamento(codigo: number) {
+    if (codigo) {
+      const lancamentoFiltro = new LancamentoFiltro();
+      this.lancamento.codigo =  codigo;
+      this.telaAlterar = true;
+      this.lancamentoService.consultarPorCodigo(this.lancamento.codigo)
+      .then(lanc => {
+        this.lancamento = lanc;
+      });
+    } else {
+      this.telaAlterar = false;
+    }
+  }
+
+  alterar() {
+    this.lancamentoService.atualizar(this.lancamento).then(lanc => {
+      this.toastr.success('Lançamento alterado com sucesso');
+    }).catch(erro => {
+      this.erroService.handle(erro);
+    });
+  }
+
+  salvar(form: FormControl) {
+    if (this.telaAlterar) {
+      this.alterar();
+    } else {
+      this.novoLancamento();
+    }
   }
 
 }

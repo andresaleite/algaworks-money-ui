@@ -15,6 +15,7 @@ export class LancamentoPesquisaComponent {
   filtro = new LancamentoFiltro();
   lancamentos = [];
   totalRegistros = 0;
+
   @ViewChild('tabela') tabela;
 
   constructor(
@@ -27,7 +28,6 @@ export class LancamentoPesquisaComponent {
 
   consultar(pagina = 0) {
     this.filtro.paginaAtual = pagina;
-    console.log(this.filtro);
     this.lancamentoService.consultar(this.filtro)
     .then(
       response => {

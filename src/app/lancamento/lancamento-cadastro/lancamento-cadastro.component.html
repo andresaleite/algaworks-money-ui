@@ -1,8 +1,8 @@
 <div class="container">
-    <form #f="ngForm"  autocomplete="off" (ngSubmit)="novoLancamento(f)">
+    <form #f="ngForm"  autocomplete="off" (ngSubmit)="salvar(f)">
       <div class="ui-g">
         <div class="ui-g-12">
-          <h1>Novo Lançamento </h1>
+          <h1>{{telaAlterar ? 'Alterar' : 'Novo' }} Lançamento </h1>
         </div>
         <div class="ui-g-12">
           <p-selectButton [options]="tipos" [(ngModel)]="lancamento.tipoLancamento" name="tipoLancamento" #tipo></p-selectButton>

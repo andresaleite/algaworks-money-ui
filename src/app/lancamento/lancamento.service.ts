@@ -8,7 +8,7 @@ export class LancamentoFiltro {
   dataDe: Date;
   dataAte: Date;
   paginaAtual = 0;
-  qtdPorPagina = 2;
+  qtdPorPagina = 8;
 }
 
 @Injectable()
@@ -97,9 +97,10 @@ export class LancamentoService {
     const header = new Headers();
     header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.get(`${this.url}/${codigo}`,{headers: header}).toPromise()
+    return this.http.get(`${this.url}/${codigo}`, {headers: header}).toPromise()
     .then(lanc => {
-      return lanc.json();
+      const retorno: Lancamento = this.converterStringParaData(lanc.json());
+      return retorno;
     })
     .catch(erro => {
       return erro.json();
@@ -107,7 +108,9 @@ export class LancamentoService {
   }
 
   private converterStringParaData(lancamento: Lancamento) {
-    lancamento.dataPagamento = moment(lancamento.dataPagamento).toDate();
+    if (lancamento.dataPagamento) {
+      lancamento.dataPagamento = moment(lancamento.dataPagamento).toDate();
+    }
     lancamento.dataVencimento = moment(lancamento.dataVencimento).toDate();
 
     return lancamento;
