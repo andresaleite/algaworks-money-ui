@@ -16,9 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
  const rotas: Routes = [
    {path: 'lancamentos', component: LancamentoPesquisaComponent},
-   {path: 'lancamentos/novo', component: LancamentoCadastroComponent},
+   {path: 'lancamento/novo', component: LancamentoCadastroComponent},
    {path: 'pessoas', component: PessoaPesquisaComponent},
-   {path: 'pessoas/novo', component: PessoaCadastroComponent}
+   {path: 'pessoa/nova', component: PessoaCadastroComponent}
  ];
 
 @NgModule({
@@ -26,8 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(rotas),
 

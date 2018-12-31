@@ -1,5 +1,6 @@
-import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { ToastrModule } from 'ngx-toastr';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
@@ -11,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ErroService } from './erro.service';
 
 
+
 @NgModule({
   declarations: [
     NavbarComponent
@@ -18,8 +20,9 @@ import { ErroService } from './erro.service';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ToastrModule.forRoot(),
-    ConfirmDialogModule,
+    ConfirmDialogModule
   ],
   exports: [
     NavbarComponent,
