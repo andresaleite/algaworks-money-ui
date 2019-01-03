@@ -1,15 +1,17 @@
-<div class="container" >
-    <form #f="ngForm"  autocomplete="off" (ngSubmit)="logar(f)" >
-      <div class="ui-g-5">
+<div class="container" style="max-width:400px; margin: auto">
+{{authSevice.jwtPayload | json}}
+
+    <form #f="ngForm"  autocomplete="on" (ngSubmit)="logar(f)" >
+      <div class="ui-g ui-fluid">
         <div class="ui-g-12">
           <h1>Login</h1>
         </div>
 
-        <div class="ui-g-12 ui-fluid">
+        <div class="ui-g-12">
           <input type="text" name="email" [(ngModel)]="email" pInputText placeholder="E-mail" #emailx="ngModel" required>
           <app-message [control]="emailx" error="required" text="Informe o E-mail"></app-message>
         </div>
-        <div class="ui-g-12 ui-fluid">
+        <div class="ui-g-12">
             <input name="senha" [(ngModel)]="senha" pInputText placeholder="Senha" type="password" #senhax="ngModel" pPassword  required>
             <app-message [control]="senhax" error="required" text="Informe a senha"></app-message>
           </div>
