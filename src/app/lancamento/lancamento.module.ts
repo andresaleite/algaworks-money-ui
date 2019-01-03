@@ -42,8 +42,6 @@ import { LancamentoRoutingModule } from './lancamento-routing.module';
     FormsModule,
     SharedModule,
     LancamentoRoutingModule
-
-
   ]
 })
 export class LancamentoModule { }

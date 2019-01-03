@@ -12,6 +12,7 @@ import { PessoaService } from '../pessoa/pessoa.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErroService } from './erro.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { AuthService } from '../seguranca/auth.service';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     ErroService,
     LancamentoService,
     PessoaService,
+    AuthService,
 
     Title,
     ConfirmationService,

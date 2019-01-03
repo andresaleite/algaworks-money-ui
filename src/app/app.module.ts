@@ -10,6 +10,7 @@ import { LancamentoModule } from './lancamento/lancamento.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 const rotas: Routes = [
    {path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
@@ -29,7 +30,8 @@ const rotas: Routes = [
 
     LancamentoModule,
     PessoaModule,
-    CoreModule
+    CoreModule,
+    SegurancaModule
   ],
   bootstrap: [AppComponent]
 })
