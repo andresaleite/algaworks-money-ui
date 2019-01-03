@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+
+import { ErroService } from 'src/app/core/erro.service';
 import { AuthService } from '../auth.service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-login-form',
@@ -13,7 +17,9 @@ export class LoginFormComponent implements OnInit {
   senha: string;
   constructor(
     private titulo: Title,
-    private authSevice: AuthService) { }
+    private authSevice: AuthService,
+    private erroHandle: ErroService,
+    private router: Router) { }
 
   ngOnInit() {
     this.titulo.setTitle('Login');
@@ -21,7 +27,8 @@ export class LoginFormComponent implements OnInit {
 
   logar(form: FormControl) {
     this.authSevice.logar(this.email, this.senha).then(sucesso => {
-
-    });
+      this.router.navigate(['/lancamentos']);
+    }).catch(erro => this.erroHandle.handle(erro) );
+    this.senha = '';
   }
 }

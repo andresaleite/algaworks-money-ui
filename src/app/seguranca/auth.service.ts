@@ -27,8 +27,13 @@ export class AuthService {
       this.armazenarToken(retorno.json().access_token);
       return null;
     }).catch(erro => {
-      console.log(erro);
-      return erro;
+      if (erro.status === 400) {
+        const erroJson = erro.json();
+        if (erroJson.error === 'invalid_grant') {
+          return Promise.reject('Usuário ou senha inválida.');
+        }
+      }
+      return Promise.reject(erro);
     });
   }
   armazenarToken(token: string) {
