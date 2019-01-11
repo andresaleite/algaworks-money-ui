@@ -4,6 +4,8 @@ import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api';
 import { ToastrService } from 'ngx-toastr';
 import { ErroService } from 'src/app/core/erro.service';
+import { tokenGetter } from 'src/app/seguranca/seguranca.module';
+import { Lancamento } from 'src/app/core/model';
 
 
 @Component({
@@ -12,10 +14,11 @@ import { ErroService } from 'src/app/core/erro.service';
   styleUrls: ['./lancamento-pesquisa.component.css'],
 
 })
-export class LancamentoPesquisaComponent implements OnInit{
+export class LancamentoPesquisaComponent implements OnInit {
   filtro = new LancamentoFiltro();
-  lancamentos = [];
+  lancamentos = [Lancamento];
   totalRegistros = 0;
+
 
   @ViewChild('tabela') tabela;
 
@@ -29,6 +32,7 @@ export class LancamentoPesquisaComponent implements OnInit{
 
   ngOnInit() {
     this.titulo.setTitle('Pesquisa de lançamentos');
+    console.log(tokenGetter());
   }
 
   consultar(pagina = 0) {
@@ -36,7 +40,8 @@ export class LancamentoPesquisaComponent implements OnInit{
     this.lancamentoService.consultar(this.filtro)
     .then(
       response => {
-      this.lancamentos = response.lancamentos;
+        console.log('xxxx' + JSON.stringify(response));
+      this.lancamentos = response;
       this.totalRegistros = response.totalRegistros;
     })
     .catch(erro => {

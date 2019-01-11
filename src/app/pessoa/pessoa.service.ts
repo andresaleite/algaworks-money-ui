@@ -104,7 +104,7 @@ export class PessoaService {
     const head = new Headers();
     head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     head.append('Content-Type', 'application/json');
-    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`,JSON.stringify(pessoa), {headers: head}).toPromise()
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`, JSON.stringify(pessoa), {headers: head}).toPromise()
     .then(resposta => {
       return resposta.json();
     }).catch(erro => {

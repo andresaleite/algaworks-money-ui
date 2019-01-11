@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,7 @@ export class AuthService {
 
   constructor(
     private http: Http,
-    private jwt: JwtHelper) {
+    private jwt: JwtHelperService) {
       this.carregarToken();
     }
 
@@ -38,11 +39,11 @@ export class AuthService {
   }
   armazenarToken(token: string) {
     this.jwtPayload = this.jwt.decodeToken(token);
-    localStorage.setItem('token', token);
+    localStorage.setItem('access_token', token);
   }
 
   carregarToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('access_token');
 
     if (token) {
       this.armazenarToken(token);

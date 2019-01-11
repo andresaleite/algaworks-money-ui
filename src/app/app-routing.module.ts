@@ -5,9 +5,10 @@ import { LancamentoCadastroComponent } from './lancamento/lancamento-cadastro/la
 import { PessoaPesquisaComponent } from './pessoa/pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoa/pessoa-cadastro/pessoa-cadastro.component';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
+import { LoginFormComponent } from './seguranca/login-form/login-form.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
+  {path: '', redirectTo: 'login', pathMatch: 'full' },
   {path: 'lancamentos', component: LancamentoPesquisaComponent},
   {path: 'lancamento/novo', component: LancamentoCadastroComponent},
   {path: 'lancamento/:codigo', component: LancamentoCadastroComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'pessoa/nova', component: PessoaCadastroComponent},
   {path: 'pessoa/:codigo', component: PessoaCadastroComponent},
   {path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
+  {path: 'login', component: LoginFormComponent},
   {path: '**', redirectTo: 'pagina-nao-encontrada'}
 ];
 

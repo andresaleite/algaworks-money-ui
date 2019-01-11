@@ -1,7 +1,15 @@
 import { Lancamento } from './../core/model';
-import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Injectable, OnInit } from '@angular/core';
+import { Headers, URLSearchParams } from '@angular/http';
 import * as moment from 'moment/moment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tokenGetter } from '../seguranca/seguranca.module';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Authorization': `Bearer ${tokenGetter()}`,
+  'Content-Type': 'application/x-www-form-urlencoded'})
+};
+
 
 export class LancamentoFiltro {
   descricao: string;
@@ -12,14 +20,16 @@ export class LancamentoFiltro {
 }
 
 @Injectable()
-export class LancamentoService {
+export class LancamentoService implements OnInit {
   url = 'http://localhost:8080/lancamentos';
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
+
+  ngOnInit() {
+    tokenGetter();
+  }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
-    const header = new Headers();
     const params = new  URLSearchParams();
-    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     params.set('page', filtro.paginaAtual.toString());
     params.set('size', filtro.qtdPorPagina.toString());
     if (filtro.descricao) {
@@ -34,18 +44,10 @@ export class LancamentoService {
       params.set('dataAte', moment(filtro.dataAte).format('YYYY-MM-DD'));
     }
 
-    return this.http.get(`${this.url}?resumo`, {headers: header, search: params})
+    return this.http.get<Lancamento>(`${this.url}?resumo&${params}`, httpOptions)
     .toPromise()
-    .then(response => {
-      const tudo = response.json();
-      const lancamentos = tudo.content;
-      const resultado = {
-        lancamentos: lancamentos,
-        totalRegistros: tudo.totalElements
-      };
-
-      return resultado;
-
+    .then(resultado => {
+      return resultado['content'];
     })
     .catch(
       erro => { return Promise.reject(`Erro ao consultar lançamentos.`);
@@ -55,7 +57,7 @@ export class LancamentoService {
   excluir(codigo: number): Promise<void> {
     const header = new Headers();
     header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    return this.http.delete(`${this.url}/${codigo}`, {headers: header})
+    return this.http.delete(`${this.url}/${codigo}`)
     .toPromise()
     .then(response => {
       return null;
@@ -66,10 +68,10 @@ export class LancamentoService {
     const header = new Headers();
     header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.url, JSON.stringify(lancamento), {headers: header})
+    return this.http.post(this.url, JSON.stringify(lancamento))
     .toPromise()
     .then(sucesso => {
-      return sucesso.json();
+      return sucesso;
     }).catch(erro => {
       return erro.json();
     });
@@ -80,13 +82,12 @@ export class LancamentoService {
     header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     header.append('Content-Type', 'application/json');
 
-    return this.http.put(
+    return this.http.put<Lancamento>(
       `${this.url}/${lancamento.codigo}`,
-      JSON.stringify(lancamento),
-      {headers: header})
+      JSON.stringify(lancamento))
       .toPromise()
       .then(lanc => {
-        const retorno: Lancamento = this.converterStringParaData(lanc.json());
+        const retorno: Lancamento = this.converterStringParaData(lanc);
         return retorno;
       })
       .catch(erro => {
@@ -98,9 +99,9 @@ export class LancamentoService {
     const header = new Headers();
     header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.get(`${this.url}/${codigo}`, {headers: header}).toPromise()
+    return this.http.get<Lancamento>(`${this.url}/${codigo}`).toPromise()
     .then(lanc => {
-      const retorno: Lancamento = this.converterStringParaData(lanc.json());
+      const retorno: Lancamento = this.converterStringParaData(lanc);
       return retorno;
     })
     .catch(erro => {

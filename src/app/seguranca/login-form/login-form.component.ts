@@ -5,7 +5,6 @@ import { FormControl } from '@angular/forms';
 
 import { ErroService } from 'src/app/core/erro.service';
 import { AuthService } from '../auth.service';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-login-form',
@@ -13,8 +12,10 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  email: string;
-  senha: string;
+  // email: string;
+  // senha: string;
+   email = 'admin@algamoney.com';
+   senha = 'admin';
   constructor(
     private titulo: Title,
     private authSevice: AuthService,
