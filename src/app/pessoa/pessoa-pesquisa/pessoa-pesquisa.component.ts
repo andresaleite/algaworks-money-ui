@@ -24,7 +24,7 @@ export class PessoaPesquisaComponent {
   consultar(pagina = 0) {
     this.filtro.paginaAtual = pagina;
     this.pessoaService.consultar(this.filtro, false).then(resposta => {
-      this.pessoas = resposta.pessoas;
+      this.pessoas = resposta;
       this.totalRegistros = resposta.totalRegistros;
     })
     .catch(erro => {

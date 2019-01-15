@@ -13,7 +13,7 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
   templateUrl: './pessoa-cadastro.component.html',
   styleUrls: ['./pessoa-cadastro.component.css']
 })
-export class PessoaCadastroComponent implements OnInit{
+export class PessoaCadastroComponent implements OnInit {
   pessoa = new Pessoa();
 
   constructor(

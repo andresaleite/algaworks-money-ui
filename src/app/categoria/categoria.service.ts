@@ -1,20 +1,24 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { toUnicode } from 'punycode';
+
+import { tokenGetter } from '../seguranca/seguranca.module';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Authorization': `Bearer ${tokenGetter()}`,
+  'Content-Type': 'application/x-www-form-urlencoded'})
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   listar(): Promise<any> {
-    const head = new Headers();
-    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    return this.http.get('http://localhost:8080/categorias', {headers: head})
+    return this.http.get('http://localhost:8080/categorias', httpOptions)
     .toPromise()
     .then(resposta => {
-      return resposta.json();
+      return resposta;
     })
     .catch(erro => {
       return erro;

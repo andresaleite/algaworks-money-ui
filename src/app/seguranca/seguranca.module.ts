@@ -37,7 +37,11 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['http://localhost:4200/login'],
-        blacklistedRoutes: ['http://localhost:4200/lancamentos', 'http://localhost:4200/pessoas']
+        blacklistedRoutes: [
+          'http://localhost:4200/lancamentos',
+          'http://localhost:4200/lancamento',
+          'http://localhost:4200/pessoas',
+          'http://localhost:4200/pessoa']
       }
     })
   ]

@@ -49,7 +49,7 @@ export class LancamentoCadastroComponent  implements OnInit {
   buscarPessoas() {
     const filtro = new PessoaFiltro();
     this.pessoaService.consultar(filtro, true).then(lista => {
-      this.pessoas = lista.pessoas.map(p => ({label: p.nome, value: p.codigo}));
+      this.pessoas = lista.map(p => ({label: p.nome, value: p.codigo}));
     }).catch(erro => this.erroService.handle(erro));
   }
 

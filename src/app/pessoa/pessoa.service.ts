@@ -1,7 +1,13 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { URLSearchParams } from '@angular/http';
 import { Pessoa } from '../core/model';
+import { tokenGetter } from '../seguranca/seguranca.module';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Authorization': `Bearer ${tokenGetter()}`,
+  'Content-Type': 'application/x-www-form-urlencoded'})
+};
 
 export class PessoaFiltro {
   nome: string;
@@ -13,13 +19,11 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
   urlPadrao = 'http://localhost:8080/pessoas';
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   consultar(filtro: PessoaFiltro, todos: boolean): Promise<any> {
-    const head = new Headers();
     const param = new URLSearchParams();
 
-    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     if (todos) {
       filtro.qtdPorPagina =  0;
     }
@@ -34,18 +38,10 @@ export class PessoaService {
     }
 
 
-    return this.http.get(`${this.urlPadrao}?resumo`, {headers: head, search: param})
+    return this.http.get<Pessoa>(`${this.urlPadrao}?resumo`, httpOptions)
     .toPromise()
     .then(response => {
-      const tudo = response.json();
-      const pessoas = tudo.content;
-      const resultado = {
-        pessoas: pessoas,
-        totalRegistros: tudo.totalElements
-      };
-
-      return resultado;
-
+      return response['content'];
     });
   }
 
@@ -54,17 +50,14 @@ export class PessoaService {
     const head = new Headers();
     head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.delete(`${this.urlPadrao}/${codigo}`, {headers: head})
+    return this.http.delete(`${this.urlPadrao}/${codigo}`, httpOptions)
     .toPromise()
     .then(() => null);
   }
 
   mudarStatus(pessoa: any): Promise<string> {
-    const head = new Headers();
-    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    head.append('Content-Type', 'application/json');
 
-    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}/ativo`, JSON.stringify(!pessoa.ativo), {headers: head})
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}/ativo`, JSON.stringify(!pessoa.ativo), httpOptions)
     .toPromise()
     .then(() => 'O status foi alterado com sucesso.')
     .catch(erro => {
@@ -73,42 +66,34 @@ export class PessoaService {
   }
 
   novaPessoa(pessoa: Pessoa): Promise<any> {
-    const head = new Headers();
-    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    head.append('Content-Type', 'application/json');
     pessoa.ativo = true;
       return this.http.post(
         this.urlPadrao, JSON.stringify(pessoa),
-        {headers: head})
+        httpOptions)
         .toPromise()
         .then(resposta => {
-          return resposta.json();
+          return resposta;
         })
         .catch(erro => {
-          return erro.json();
+          return erro;
         });
   }
 
   consultarPessoaPorCodigo(codigo: number): Promise<Pessoa> {
-    const head = new Headers();
-    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    return this.http.get(`${this.urlPadrao}/${codigo}`, {headers: head}).toPromise()
+    return this.http.get(`${this.urlPadrao}/${codigo}`, httpOptions).toPromise()
     .then(resposta => {
-      return resposta.json();
+      return resposta;
     }).catch(erro => {
-      return erro.json();
+      return erro;
     });
   }
 
   alterarPessoa(pessoa: Pessoa): Promise<Pessoa> {
-    const head = new Headers();
-    head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    head.append('Content-Type', 'application/json');
-    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`, JSON.stringify(pessoa), {headers: head}).toPromise()
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`, JSON.stringify(pessoa), httpOptions).toPromise()
     .then(resposta => {
-      return resposta.json();
+      return resposta['content'];
     }).catch(erro => {
-      return erro();
+      return erro;
     });
   }
 }

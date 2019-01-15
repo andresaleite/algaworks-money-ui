@@ -1,6 +1,6 @@
 import { Lancamento } from './../core/model';
 import { Injectable, OnInit } from '@angular/core';
-import { Headers, URLSearchParams } from '@angular/http';
+import { URLSearchParams } from '@angular/http';
 import * as moment from 'moment/moment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tokenGetter } from '../seguranca/seguranca.module';
@@ -55,9 +55,7 @@ export class LancamentoService implements OnInit {
   }
 
   excluir(codigo: number): Promise<void> {
-    const header = new Headers();
-    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    return this.http.delete(`${this.url}/${codigo}`)
+    return this.http.delete(`${this.url}/${codigo}`, httpOptions)
     .toPromise()
     .then(response => {
       return null;
@@ -65,10 +63,7 @@ export class LancamentoService implements OnInit {
   }
 
   novoLancamento(lancamento: Lancamento): Promise<Lancamento> {
-    const header = new Headers();
-    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    header.append('Content-Type', 'application/json');
-    return this.http.post(this.url, JSON.stringify(lancamento))
+    return this.http.post(this.url, JSON.stringify(lancamento), httpOptions)
     .toPromise()
     .then(sucesso => {
       return sucesso;
@@ -78,13 +73,9 @@ export class LancamentoService implements OnInit {
   }
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
-    const header = new Headers();
-    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-    header.append('Content-Type', 'application/json');
-
     return this.http.put<Lancamento>(
       `${this.url}/${lancamento.codigo}`,
-      JSON.stringify(lancamento))
+      JSON.stringify(lancamento), httpOptions)
       .toPromise()
       .then(lanc => {
         const retorno: Lancamento = this.converterStringParaData(lanc);
@@ -96,10 +87,7 @@ export class LancamentoService implements OnInit {
   }
 
   consultarPorCodigo(codigo: number): Promise<Lancamento> {
-    const header = new Headers();
-    header.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
-    return this.http.get<Lancamento>(`${this.url}/${codigo}`).toPromise()
+    return this.http.get<Lancamento>(`${this.url}/${codigo}`, httpOptions).toPromise()
     .then(lanc => {
       const retorno: Lancamento = this.converterStringParaData(lanc);
       return retorno;
