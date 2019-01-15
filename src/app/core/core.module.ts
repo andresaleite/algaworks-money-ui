@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
 import { ConfirmationService } from 'primeng/components/common/api';
-import { JwtHelper } from 'angular2-jwt/angular2-jwt';
 
 import { LancamentoService } from '../lancamento/lancamento.service';
 import { PessoaService } from '../pessoa/pessoa.service';
@@ -39,7 +38,6 @@ import { AuthService } from '../seguranca/auth.service';
     PessoaService,
     AuthService,
 
-    JwtHelper,
     Title,
     ConfirmationService,
     {
