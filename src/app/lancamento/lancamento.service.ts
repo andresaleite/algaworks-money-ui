@@ -3,12 +3,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import * as moment from 'moment/moment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tokenGetter } from '../seguranca/seguranca.module';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Authorization': `Bearer ${tokenGetter()}`,
-  'Content-Type': 'application/x-www-form-urlencoded'})
-};
+
 
 
 export class LancamentoFiltro {
@@ -25,7 +21,7 @@ export class LancamentoService implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    tokenGetter();
+
   }
 
   consultar(filtro: LancamentoFiltro): Promise<any> {
@@ -44,7 +40,7 @@ export class LancamentoService implements OnInit {
       params.set('dataAte', moment(filtro.dataAte).format('YYYY-MM-DD'));
     }
 
-    return this.http.get<Lancamento>(`${this.url}?resumo&${params}`, httpOptions)
+    return this.http.get<Lancamento>(`${this.url}?resumo&${params}`)
     .toPromise()
     .then(resultado => {
       return resultado['content'];
@@ -55,7 +51,7 @@ export class LancamentoService implements OnInit {
   }
 
   excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.url}/${codigo}`, httpOptions)
+    return this.http.delete(`${this.url}/${codigo}`)
     .toPromise()
     .then(response => {
       return null;
@@ -63,7 +59,7 @@ export class LancamentoService implements OnInit {
   }
 
   novoLancamento(lancamento: Lancamento): Promise<Lancamento> {
-    return this.http.post(this.url, JSON.stringify(lancamento), httpOptions)
+    return this.http.post(this.url, JSON.stringify(lancamento))
     .toPromise()
     .then(sucesso => {
       return sucesso;
@@ -75,19 +71,19 @@ export class LancamentoService implements OnInit {
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
     return this.http.put<Lancamento>(
       `${this.url}/${lancamento.codigo}`,
-      JSON.stringify(lancamento), httpOptions)
+      JSON.stringify(lancamento))
       .toPromise()
       .then(lanc => {
         const retorno: Lancamento = this.converterStringParaData(lanc);
         return retorno;
       })
       .catch(erro => {
-        return erro.json();
+        return erro;
       });
   }
 
   consultarPorCodigo(codigo: number): Promise<Lancamento> {
-    return this.http.get<Lancamento>(`${this.url}/${codigo}`, httpOptions).toPromise()
+    return this.http.get<Lancamento>(`${this.url}/${codigo}`).toPromise()
     .then(lanc => {
       const retorno: Lancamento = this.converterStringParaData(lanc);
       return retorno;

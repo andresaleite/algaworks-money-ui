@@ -3,8 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
+import { AuthService } from './../auth.service';
 import { ErroService } from 'src/app/core/erro.service';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login-form',

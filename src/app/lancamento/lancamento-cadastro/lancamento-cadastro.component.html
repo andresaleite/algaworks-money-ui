@@ -45,7 +45,7 @@
             name="pessoa"
             [(ngModel)]="lancamento.pessoa.codigo"
             #pessoa="ngModel"
-            required
+            requiredi
             [filter]="true"
             [autoWidth]=false></p-dropdown>
             <app-message [control]="pessoa" error="required" text="Informe uma pessoa"></app-message>

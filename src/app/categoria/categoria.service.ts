@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { tokenGetter } from '../seguranca/seguranca.module';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Authorization': `Bearer ${tokenGetter()}`,
+  headers: new HttpHeaders({
+    /*'Authorization': `Bearer ${tokenGetter()}`,*/
   'Content-Type': 'application/x-www-form-urlencoded'})
 };
 

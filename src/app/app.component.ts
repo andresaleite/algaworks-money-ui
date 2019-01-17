@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { registerLocaleData } from '@angular/common';
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(private toastr: ToastrService,
-              private router: Router) {
+              private router: Router,
+              public http: HttpClient) {
     registerLocaleData(localeBr, 'pt');
   }
 

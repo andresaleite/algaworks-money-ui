@@ -1,21 +1,26 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { JwtModule } from '@auth0/angular-jwt';
-import { SegurancaRoutingModule } from './seguranca-routing.module';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 import { ButtonModule } from 'primeng/components/button/button';
 import { TableModule } from 'primeng/components/table/table';
 
+import { SegurancaRoutingModule } from './seguranca-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
+export function jwtOptionsFactory(authService) {
+  return {
+    tokenGetter: () => {
+      return authService.carregarToken();
+    }
+  };
 }
 
 @NgModule({
@@ -24,7 +29,7 @@ export function tokenGetter() {
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-
+    HttpClientModule,
     InputTextModule,
     ButtonModule,
     TableModule,
@@ -32,18 +37,17 @@ export function tokenGetter() {
     SharedModule,
     SegurancaRoutingModule,
     FormsModule,
-    HttpClientModule,
     JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        whitelistedDomains: ['http://localhost:4200/login'],
-        blacklistedRoutes: [
-          'http://localhost:4200/lancamentos',
-          'http://localhost:4200/lancamento',
-          'http://localhost:4200/pessoas',
-          'http://localhost:4200/pessoa']
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [AuthService]
       }
     })
-  ]
+  ],
+  providers: [AuthService]
 })
+
 export class SegurancaModule { }
+
+

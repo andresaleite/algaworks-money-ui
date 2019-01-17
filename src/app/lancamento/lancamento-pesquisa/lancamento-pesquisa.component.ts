@@ -4,7 +4,6 @@ import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api';
 import { ToastrService } from 'ngx-toastr';
 import { ErroService } from 'src/app/core/erro.service';
-import { tokenGetter } from 'src/app/seguranca/seguranca.module';
 import { Lancamento } from 'src/app/core/model';
 
 
@@ -32,7 +31,6 @@ export class LancamentoPesquisaComponent implements OnInit {
 
   ngOnInit() {
     this.titulo.setTitle('Pesquisa de lançamentos');
-    console.log(tokenGetter());
   }
 
   consultar(pagina = 0) {

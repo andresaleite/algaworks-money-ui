@@ -1,18 +1,21 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA==',
+  'Content-Type': 'application/x-www-form-urlencoded'})
+};
 
 @Injectable()
 export class AuthService {
   urlOauth = 'http://localhost:8080/oauth/token';
   jwtPayload: any;
+  token: string;
 
   constructor(
-    private http: Http,
-    private jwt: JwtHelperService) {
-      this.carregarToken();
-    }
+      private http: HttpClient,
+    ) { }
 
   logar(usuario: string, senha: string): Promise<void> {
     const head = new Headers();
@@ -22,10 +25,10 @@ export class AuthService {
     head.append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
 
 
-    return this.http.post(this.urlOauth, body, { headers: head }).toPromise()
+    return this.http.post(this.urlOauth, body, httpOptions).toPromise()
     .then(retorno => {
       console.log(retorno);
-      this.armazenarToken(retorno.json().access_token);
+      this.armazenarToken(retorno['access_token']);
       return null;
     }).catch(erro => {
       if (erro.status === 400) {
@@ -38,15 +41,18 @@ export class AuthService {
     });
   }
   armazenarToken(token: string) {
-    this.jwtPayload = this.jwt.decodeToken(token);
-    localStorage.setItem('access_token', token);
+    const jwt: JwtHelperService = new JwtHelperService();
+    this.jwtPayload = jwt.decodeToken(token);
+    localStorage.setItem('token', token);
+    this.token = token;
   }
 
   carregarToken() {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('token');
 
     if (token) {
-      this.armazenarToken(token);
+     this.armazenarToken(token);
+     return this;
     }
   }
 }
