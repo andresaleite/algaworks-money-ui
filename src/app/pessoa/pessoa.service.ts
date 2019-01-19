@@ -2,12 +2,10 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { Pessoa } from '../core/model';
+import { AuthService } from '../seguranca/auth.service';
+import { jwtOptionsFactory } from '../seguranca/seguranca.module';
 
-const httpOptions = {
-  headers: new HttpHeaders(
-    {/*'Authorization': `Bearer ${tokenGetter()}`,*/
-  'Content-Type': 'application/x-www-form-urlencoded'})
-};
+
 
 export class PessoaFiltro {
   nome: string;
@@ -18,8 +16,15 @@ export class PessoaFiltro {
 
 @Injectable()
 export class PessoaService {
+
+  httpOptions = {
+    headers: new HttpHeaders(
+      {'Authorization': `Bearer ${this.auth.carregarToken().token}`,
+    'Content-Type': 'application/x-www-form-urlencoded'})
+  };
   urlPadrao = 'http://localhost:8080/pessoas';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private auth: AuthService) { }
 
   consultar(filtro: PessoaFiltro, todos: boolean): Promise<any> {
     const param = new URLSearchParams();
@@ -38,7 +43,7 @@ export class PessoaService {
     }
 
 
-    return this.http.get<Pessoa>(`${this.urlPadrao}?resumo`, httpOptions)
+    return this.http.get<Pessoa>(`${this.urlPadrao}?resumo`, this.httpOptions)
     .toPromise()
     .then(response => {
       return response['content'];
@@ -50,14 +55,14 @@ export class PessoaService {
     const head = new Headers();
     head.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http.delete(`${this.urlPadrao}/${codigo}`, httpOptions)
+    return this.http.delete(`${this.urlPadrao}/${codigo}`, this.httpOptions)
     .toPromise()
     .then(() => null);
   }
 
   mudarStatus(pessoa: any): Promise<string> {
 
-    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}/ativo`, JSON.stringify(!pessoa.ativo), httpOptions)
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}/ativo`, JSON.stringify(!pessoa.ativo), this.httpOptions)
     .toPromise()
     .then(() => 'O status foi alterado com sucesso.')
     .catch(erro => {
@@ -69,7 +74,7 @@ export class PessoaService {
     pessoa.ativo = true;
       return this.http.post(
         this.urlPadrao, JSON.stringify(pessoa),
-        httpOptions)
+        this.httpOptions)
         .toPromise()
         .then(resposta => {
           return resposta;
@@ -80,7 +85,7 @@ export class PessoaService {
   }
 
   consultarPessoaPorCodigo(codigo: number): Promise<Pessoa> {
-    return this.http.get(`${this.urlPadrao}/${codigo}`, httpOptions).toPromise()
+    return this.http.get(`${this.urlPadrao}/${codigo}`, this.httpOptions).toPromise()
     .then(resposta => {
       return resposta;
     }).catch(erro => {
@@ -89,7 +94,7 @@ export class PessoaService {
   }
 
   alterarPessoa(pessoa: Pessoa): Promise<Pessoa> {
-    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`, JSON.stringify(pessoa), httpOptions).toPromise()
+    return this.http.put(`${this.urlPadrao}/${pessoa.codigo}`, JSON.stringify(pessoa), this.httpOptions).toPromise()
     .then(resposta => {
       return resposta['content'];
     }).catch(erro => {

@@ -38,7 +38,6 @@ export class LancamentoPesquisaComponent implements OnInit {
     this.lancamentoService.consultar(this.filtro)
     .then(
       response => {
-        console.log('xxxx' + JSON.stringify(response));
       this.lancamentos = response;
       this.totalRegistros = response.totalRegistros;
     })
