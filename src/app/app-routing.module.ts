@@ -6,6 +6,7 @@ import { PessoaPesquisaComponent } from './pessoa/pessoa-pesquisa/pessoa-pesquis
 import { PessoaCadastroComponent } from './pessoa/pessoa-cadastro/pessoa-cadastro.component';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 import { LoginFormComponent } from './seguranca/login-form/login-form.component';
+import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'pessoa/:codigo', component: PessoaCadastroComponent},
   {path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
   {path: 'login', component: LoginFormComponent},
+  {path: 'nao-autorizado', component: NaoAutorizadoComponent},
   {path: '**', redirectTo: 'pagina-nao-encontrada'}
 ];
 

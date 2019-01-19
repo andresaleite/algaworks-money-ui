@@ -11,16 +11,18 @@ import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 import { SegurancaModule } from './seguranca/seguranca.module';
+import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 
 const rotas: Routes = [
    {path: '', redirectTo: 'login', pathMatch: 'full' },
+   {path: 'nao-autorizado', component: NaoAutorizadoComponent},
    {path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
    {path: '**', redirectTo: 'pagina-nao-encontrada'}
  ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

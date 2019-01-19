@@ -13,10 +13,12 @@ export class AuthService {
   urlOauth = 'http://localhost:8080/oauth/token';
   jwtPayload: any;
   token: string;
+  jwt: JwtHelperService = new JwtHelperService();
 
   constructor(
       private http: HttpClient,
-    ) { }
+    ) {
+    }
 
   logar(usuario: string, senha: string): Promise<void> {
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
@@ -36,8 +38,7 @@ export class AuthService {
     });
   }
   armazenarToken(token: string) {
-    const jwt: JwtHelperService = new JwtHelperService();
-    this.jwtPayload = jwt.decodeToken(token);
+    this.jwtPayload = this.jwt.decodeToken(token);
     localStorage.setItem('token', token);
     this.token = token;
   }
@@ -51,8 +52,17 @@ export class AuthService {
     }
   }
 
-  temPermissao(permissao: string) {
+  public temPermissao(permissao: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+  }
+
+  public temQualquerPermissao(roles: any) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   obterNovoAccessToken(): Promise<void> {
@@ -60,13 +70,16 @@ export class AuthService {
     return this.http.post(this.urlOauth, body, httpOptions)
     .toPromise()
     .then(response => {
-      console.log('certo ' + response['access_token']);
       this.armazenarToken(response['access_token']);
-      return Promise.resolve(null);
     })
     .catch(erro => {
       console.error('erro ao renovar token');
       return Promise.resolve(null);
     });
+  }
+
+  isAccessTokenInvalido() {
+    const getToken = localStorage.getItem('token');
+    return !getToken || this.jwt.isTokenExpired(getToken);
   }
 }

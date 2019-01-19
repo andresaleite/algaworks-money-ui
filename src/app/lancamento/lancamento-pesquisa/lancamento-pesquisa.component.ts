@@ -5,6 +5,7 @@ import {LazyLoadEvent, ConfirmationService} from 'primeng/components/common/api'
 import { ToastrService } from 'ngx-toastr';
 import { ErroService } from 'src/app/core/erro.service';
 import { Lancamento } from 'src/app/core/model';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class LancamentoPesquisaComponent implements OnInit {
     private toastr: ToastrService,
     private confirm: ConfirmationService,
     private erroService: ErroService,
-    private titulo: Title
+    private titulo: Title,
+    private auth: AuthService
     ) {}
 
   ngOnInit() {

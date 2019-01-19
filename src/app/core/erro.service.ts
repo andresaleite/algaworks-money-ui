@@ -13,9 +13,13 @@ export class ErroService {
     let msg: string;
     if (typeof erro === 'string') {
       msg = erro;
-    } else if (erro instanceof Response && erro.status >= 400 && erro.status < 500) {
+    } else if (erro.status >= 400 && erro.status < 500) {
       let errors;
       msg = 'Ocorreu um erro ao processar sua requisição.';
+      if(erro.status === 403) {
+        msg = 'Usuário sem permissão';
+      }
+
       try {
         errors = erro.json();
         msg = errors[0].mensagemUsuario;

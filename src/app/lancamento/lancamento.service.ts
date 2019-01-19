@@ -2,8 +2,9 @@ import { Lancamento } from './../core/model';
 import { Injectable, OnInit } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import * as moment from 'moment/moment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../seguranca/auth.service';
+import { MoneyHttp } from '../seguranca/money-http';
 
 
 
@@ -24,7 +25,7 @@ export class LancamentoService implements OnInit {
     'Content-Type': 'application/json'})
   };
   urlPadrao = 'http://localhost:8080/lancamentos';
-  constructor(private http: HttpClient,
+  constructor(private http: MoneyHttp,
     private auth: AuthService) { }
 
   ngOnInit() {
@@ -47,7 +48,7 @@ export class LancamentoService implements OnInit {
       params.set('dataAte', moment(filtro.dataAte).format('YYYY-MM-DD'));
     }
 
-    return this.http.get<Lancamento>(`${this.urlPadrao}?resumo&${params}`, this.httpOptions)
+    return this.http.get2(`${this.urlPadrao}?resumo&${params}`, this.httpOptions, null)
     .toPromise()
     .then(resultado => {
       return resultado['content'];
@@ -58,7 +59,7 @@ export class LancamentoService implements OnInit {
   }
 
   excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.urlPadrao}/${codigo}`, this.httpOptions)
+    return this.http.delete2(`${this.urlPadrao}/${codigo}`, this.httpOptions)
     .toPromise()
     .then(response => {
       return null;
@@ -66,7 +67,7 @@ export class LancamentoService implements OnInit {
   }
 
   novoLancamento(lancamento: Lancamento): Promise<Lancamento> {
-    return this.http.post(this.urlPadrao, JSON.stringify(lancamento), this.httpOptions)
+    return this.http.post2(this.urlPadrao, JSON.stringify(lancamento), this.httpOptions)
     .toPromise()
     .then(sucesso => {
       return sucesso;
@@ -76,7 +77,7 @@ export class LancamentoService implements OnInit {
   }
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
-    return this.http.put<Lancamento>(
+    return this.http.put2(
       `${this.urlPadrao}/${lancamento.codigo}`,
       JSON.stringify(lancamento), this.httpOptions)
       .toPromise()
@@ -90,7 +91,7 @@ export class LancamentoService implements OnInit {
   }
 
   consultarPorCodigo(codigo: number): Promise<Lancamento> {
-    return this.http.get<Lancamento>(`${this.urlPadrao}/${codigo}`, this.httpOptions).toPromise()
+    return this.http.get2(`${this.urlPadrao}/${codigo}`, this.httpOptions, null).toPromise()
     .then(lanc => {
       const retorno: Lancamento = this.converterStringParaData(lanc);
       return retorno;
@@ -100,7 +101,7 @@ export class LancamentoService implements OnInit {
     });
   }
 
-  private converterStringParaData(lancamento: Lancamento) {
+  private converterStringParaData(lancamento: any) {
     if (lancamento.dataPagamento) {
       lancamento.dataPagamento = moment(lancamento.dataPagamento).toDate();
     }

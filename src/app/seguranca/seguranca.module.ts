@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHandler } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,11 +14,13 @@ import { SegurancaRoutingModule } from './seguranca-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './auth.service';
+import { MoneyHttp } from './money-http';
+import { AuthGuard } from './auth.guard';
 
-export function jwtOptionsFactory(authService) {
+export function jwtOptionsFactory(httpHandler: HttpHandler, authService: AuthService ) {
   return {
     tokenGetter: () => {
-      return authService.carregarToken();
+      return new MoneyHttp(httpHandler, authService);
     }
   };
 }
@@ -41,11 +43,11 @@ export function jwtOptionsFactory(authService) {
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
         useFactory: jwtOptionsFactory,
-        deps: [AuthService]
+        deps: [HttpHandler, AuthService]
       }
     })
   ],
-  providers: [AuthService]
+  providers: [AuthService, MoneyHttp, AuthGuard]
 })
 
 export class SegurancaModule { }

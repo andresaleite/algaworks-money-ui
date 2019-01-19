@@ -12,14 +12,14 @@ import { PessoaService } from '../pessoa/pessoa.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErroService } from './erro.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
-import { NumberOnlyDirective } from '../util/number.directive';
+import { NaoAutorizadoComponent } from './nao-autorizado.component';
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
     PaginaNaoEncontradaComponent,
-    NumberOnlyDirective
+    NaoAutorizadoComponent
 
   ],
   imports: [
@@ -32,7 +32,7 @@ import { NumberOnlyDirective } from '../util/number.directive';
     NavbarComponent,
     ToastrModule,
     ConfirmDialogModule,
-    NumberOnlyDirective
+    NaoAutorizadoComponent
   ],
   providers: [
     ErroService,
