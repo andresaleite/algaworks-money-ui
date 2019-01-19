@@ -4,7 +4,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 const httpOptions = {
   headers: new HttpHeaders({'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA==',
-  'Content-Type': 'application/x-www-form-urlencoded'})
+  'Content-Type': 'application/x-www-form-urlencoded'}),
+  withCredentials: true
 };
 
 @Injectable()
@@ -52,5 +53,20 @@ export class AuthService {
 
   temPermissao(permissao: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+  }
+
+  obterNovoAccessToken(): Promise<void> {
+    const body = 'grant_type=refresh_token';
+    return this.http.post(this.urlOauth, body, httpOptions)
+    .toPromise()
+    .then(response => {
+      console.log('certo ' + response['access_token']);
+      this.armazenarToken(response['access_token']);
+      return Promise.resolve(null);
+    })
+    .catch(erro => {
+      console.error('erro ao renovar token');
+      return Promise.resolve(null);
+    });
   }
 }
