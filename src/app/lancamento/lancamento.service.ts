@@ -21,7 +21,7 @@ export class LancamentoService implements OnInit {
   httpOptions = {
     headers: new HttpHeaders(
       {'Authorization': `Bearer ${this.auth.carregarToken().token}`,
-    'Content-Type': 'application/x-www-form-urlencoded'})
+    'Content-Type': 'application/json'})
   };
   urlPadrao = 'http://localhost:8080/lancamentos';
   constructor(private http: HttpClient,

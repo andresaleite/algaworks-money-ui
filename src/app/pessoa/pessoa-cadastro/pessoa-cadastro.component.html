@@ -18,7 +18,7 @@
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
           <label>Número</label>
-          <input pInputText type="text" name="numero" [(ngModel)]="pessoa.endereco.numero" #numero="ngModel" required >
+          <input pInputText type="text" name="numero" [(ngModel)]="pessoa.endereco.numero" #numero="ngModel" required myNumberOnly >
           <app-message [control]="numero" text="Informe o número." error="required"></app-message>
       </div>
 

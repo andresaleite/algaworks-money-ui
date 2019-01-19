@@ -18,16 +18,10 @@ export class AuthService {
     ) { }
 
   logar(usuario: string, senha: string): Promise<void> {
-    const head = new Headers();
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
-
-    head.append('Content-Type', 'application/x-www-form-urlencoded');
-    head.append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
-
 
     return this.http.post(this.urlOauth, body, httpOptions).toPromise()
     .then(retorno => {
-      console.log(retorno);
       this.armazenarToken(retorno['access_token']);
       return null;
     }).catch(erro => {

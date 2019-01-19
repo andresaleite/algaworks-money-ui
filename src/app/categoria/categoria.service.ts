@@ -10,7 +10,7 @@ export class CategoriaService {
   httpOptions = {
     headers: new HttpHeaders(
       {'Authorization': `Bearer ${this.auth.carregarToken().token}`,
-    'Content-Type': 'application/x-www-form-urlencoded'})
+    'Content-Type': 'application/json'})
   };
   urlPadrao = 'http://localhost:8080/pessoas';
   constructor(private http: HttpClient,
