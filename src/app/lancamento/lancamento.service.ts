@@ -2,7 +2,7 @@ import { Lancamento } from './../core/model';
 import { Injectable, OnInit } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import * as moment from 'moment/moment';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthService } from '../seguranca/auth.service';
 import { MoneyHttp } from '../seguranca/money-http';
 
@@ -48,18 +48,18 @@ export class LancamentoService implements OnInit {
       params.set('dataAte', moment(filtro.dataAte).format('YYYY-MM-DD'));
     }
 
-    return this.http.get2(`${this.urlPadrao}?resumo&${params}`, this.httpOptions, null)
+    return this.http.get(`${this.urlPadrao}?resumo&${params}`, {})
     .toPromise()
     .then(resultado => {
       return resultado['content'];
     })
     .catch(
-      erro => { return Promise.reject(`Erro ao consultar lançamentos.`);
-    });
+      erro => {
+        return erro; });
   }
 
   excluir(codigo: number): Promise<void> {
-    return this.http.delete2(`${this.urlPadrao}/${codigo}`, this.httpOptions)
+    return this.http.delete(`${this.urlPadrao}/${codigo}`)
     .toPromise()
     .then(response => {
       return null;
@@ -67,19 +67,19 @@ export class LancamentoService implements OnInit {
   }
 
   novoLancamento(lancamento: Lancamento): Promise<Lancamento> {
-    return this.http.post2(this.urlPadrao, JSON.stringify(lancamento), this.httpOptions)
+    return this.http.post(this.urlPadrao, JSON.stringify(lancamento))
     .toPromise()
     .then(sucesso => {
       return sucesso;
     }).catch(erro => {
-      return erro.json();
+      return erro;
     });
   }
 
   atualizar(lancamento: Lancamento): Promise<Lancamento> {
-    return this.http.put2(
+    return this.http.put(
       `${this.urlPadrao}/${lancamento.codigo}`,
-      JSON.stringify(lancamento), this.httpOptions)
+      JSON.stringify(lancamento))
       .toPromise()
       .then(lanc => {
         const retorno: Lancamento = this.converterStringParaData(lanc);
@@ -91,13 +91,13 @@ export class LancamentoService implements OnInit {
   }
 
   consultarPorCodigo(codigo: number): Promise<Lancamento> {
-    return this.http.get2(`${this.urlPadrao}/${codigo}`, this.httpOptions, null).toPromise()
+    return this.http.get(`${this.urlPadrao}/${codigo}`, {}).toPromise()
     .then(lanc => {
       const retorno: Lancamento = this.converterStringParaData(lanc);
       return retorno;
     })
     .catch(erro => {
-      return erro.json();
+      return erro;
     });
   }
 

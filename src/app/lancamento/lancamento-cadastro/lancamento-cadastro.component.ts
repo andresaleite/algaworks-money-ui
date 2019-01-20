@@ -66,6 +66,8 @@ export class LancamentoCadastroComponent  implements OnInit {
       .then(lanc => {
         this.lancamento = lanc;
         this.atualizarTituloEdicao();
+      }).catch(erro => {
+        this.erroService.handle(erro);
       });
     }
   }

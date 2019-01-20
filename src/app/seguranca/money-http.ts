@@ -1,40 +1,51 @@
 import { Injectable} from '@angular/core';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, from } from 'rxjs';
+import { ErroService } from '../core/erro.service';
 
 @Injectable()
 export class MoneyHttp extends HttpClient {
-
-    constructor(handler: HttpHandler, private auth: AuthService) {
+    constructor(handler: HttpHandler, private auth: AuthService, private erro: ErroService) {
         super(handler);
     }
 
-    public delete2(url: string, options: any): Observable<Response> {
-        return this.fazerRequisicao(() => super.delete(url, options));
+    public delete(url: string): Observable<any> {
+        const  httpOp = this.fazerRequisicao();
+        return super.delete(url, httpOp);
     }
 
-    get2(url: string, options: any, param?: string): Observable<Response> {
-        return this.fazerRequisicao(() => super.get(url, options));
+    get(url: string, options: any, param?: string): Observable<any> {
+        const  httpOp = this.fazerRequisicao();
+        return super.get(url, httpOp);
    }
 
-   post2(url: string, body: any | null, options: any): Observable<Response> {
-       return this.fazerRequisicao(() => super.post(url, options, body));
+   post(url: string, body: any | null): Observable<any> {
+        const  httpOp = this.fazerRequisicao();
+        return super.post(url, httpOp, body);
    }
 
-   put2(url: string, body: any | null, options: any): Observable<Response> {
-       return this.fazerRequisicao(() => super.put(url, body, options));
+   put(url: string, body: any | null): Observable<any> {
+        const  httpOp = this.fazerRequisicao();
+        return super.put(url, body, httpOp);
    }
 
-    private fazerRequisicao(fn: Function): Observable<Response> {
+    private fazerRequisicao() {
         if (this.auth.isAccessTokenInvalido()) {
             console.log('Obter novo token');
            this.auth.obterNovoAccessToken().then(() => {
-                return from(this.fazerRequisicao(fn));
+               if (this.auth.isAccessTokenInvalido()) {
+                this.erro.handle({erro: 'invalid_token'});
+                return {};
+               }
             });
-        } else {
-            return from(fn());
         }
+        const resp = {
+            headers: new HttpHeaders(
+              {'Authorization': `Bearer ${this.auth.token}`,
+            'Content-Type': 'application/json'}), withCredentials: true
+          };
+        return resp;
     }
 
 }

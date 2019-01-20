@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ErroService } from '../core/erro.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA==',
@@ -17,6 +18,7 @@ export class AuthService {
 
   constructor(
       private http: HttpClient,
+      private erroServ: ErroService
     ) {
     }
 
@@ -45,11 +47,10 @@ export class AuthService {
 
   carregarToken() {
     const token = localStorage.getItem('token');
-
-    if (token) {
+    if (token && !this.isAccessTokenInvalido()) {
      this.armazenarToken(token);
-     return this;
     }
+    return this;
   }
 
   public temPermissao(permissao: string) {
@@ -70,16 +71,22 @@ export class AuthService {
     return this.http.post(this.urlOauth, body, httpOptions)
     .toPromise()
     .then(response => {
+      console.log('novo token');
       this.armazenarToken(response['access_token']);
     })
     .catch(erro => {
       console.error('erro ao renovar token');
-      return Promise.resolve(null);
+      return erro;
     });
   }
 
   isAccessTokenInvalido() {
-    const getToken = localStorage.getItem('token');
-    return !getToken || this.jwt.isTokenExpired(getToken);
+    const tokenAgora = localStorage.getItem('token');
+    return !tokenAgora || this.jwt.isTokenExpired(tokenAgora);
+  }
+
+  limparAccessToken() {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
   }
 }

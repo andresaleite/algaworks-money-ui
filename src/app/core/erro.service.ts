@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErroService {
 
-  constructor(private toastService: ToastrService) { }
+  constructor(
+    private toastService: ToastrService,
+    private router: Router) { }
 
 
   handle(erro: any) {
     let msg: string;
     if (typeof erro === 'string') {
       msg = erro;
+    } else if (erro.erro === 'invalid_token') {
+      msg = 'A sessão expirou';
+      this.router.navigate(['/login']);
     } else if (erro.status >= 400 && erro.status < 500) {
       let errors;
       msg = 'Ocorreu um erro ao processar sua requisição.';
-      if(erro.status === 403) {
+      if (erro.status === 403) {
         msg = 'Usuário sem permissão';
       }
 
