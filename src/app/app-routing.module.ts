@@ -9,19 +9,20 @@ import { LoginFormComponent } from './seguranca/login-form/login-form.component'
 import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full' },
-  {path: 'lancamentos', component: LancamentoPesquisaComponent},
-  {path: 'lancamento/novo', component: LancamentoCadastroComponent},
-  {path: 'lancamento/:codigo', component: LancamentoCadastroComponent},
-  {path: 'pessoas', component: PessoaPesquisaComponent},
-  {path: 'pessoa/nova', component: PessoaCadastroComponent},
-  {path: 'pessoa/:codigo', component: PessoaCadastroComponent},
-  {path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
-  {path: 'login', component: LoginFormComponent},
+  {path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
   {path: 'nao-autorizado', component: NaoAutorizadoComponent},
+  {path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
   {path: '**', redirectTo: 'pagina-nao-encontrada'}
 ];
 
+/*
+const routes: Routes = [
+  {path: 'lancamentos', loadChildren: '/lancamento/lancamento.module#LancamentoModule'},
+  {path: 'pessoas', loadChildren: 'pessoa/pessoa.module#PessoaModule'},
+
+  {path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
+  {path: 'nao-autorizado', component: NaoAutorizadoComponent},
+];*/
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

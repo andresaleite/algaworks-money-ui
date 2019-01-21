@@ -12,9 +12,9 @@ export class LogoutService {
 
   constructor(
       private http: MoneyHttp,
-      private auth: AuthService
+      private auth: AuthService,
     ) {
-      this.tokensRevokeUrl = `${environment.apiUrl}/oauth/revoke`;
+      this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
     }
 
     logout() {

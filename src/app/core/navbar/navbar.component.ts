@@ -32,10 +32,10 @@ export class NavbarComponent implements OnInit {
   }
 
   temPermissaoPesquisarLancamento() {
-    this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO');
+    return  this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO');
   }
 
   temPermissaoPesquisarPessoa() {
-    this.auth.temPermissao('ROLE_PESQUISAR_PESSOA');
+    return this.auth.temPermissao('ROLE_PESQUISAR_PESSOA');
   }
 }
