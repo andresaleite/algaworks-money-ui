@@ -5,6 +5,7 @@ import { URLSearchParams } from '@angular/http';
 import { Pessoa } from '../core/model';
 import { AuthService } from '../seguranca/auth.service';
 import { MoneyHttp } from '../seguranca/money-http';
+import { environment } from 'src/environments/environment.prod';
 
 export class PessoaFiltro {
   nome: string;
@@ -16,10 +17,12 @@ export class PessoaFiltro {
 @Injectable()
 export class PessoaService {
 
-  urlPadrao = 'http://localhost:8080/pessoas';
+  urlPadrao: string;
   constructor(
     private http: MoneyHttp,
-    private auth: AuthService) { }
+    private auth: AuthService) {
+      this.urlPadrao = `${environment.apiUrl}/pessoas`;
+    }
 
   consultar(filtro: PessoaFiltro, todos: boolean): Promise<any> {
     const param = new URLSearchParams();

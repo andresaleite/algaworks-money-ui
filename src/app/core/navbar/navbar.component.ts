@@ -11,9 +11,9 @@ import { ErroService } from '../erro.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  exibindoMenu = false;
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private logoutS: LogoutService,
     private erro: ErroService,
     private router: Router) {
@@ -31,4 +31,11 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  temPermissaoPesquisarLancamento() {
+    this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO');
+  }
+
+  temPermissaoPesquisarPessoa() {
+    this.auth.temPermissao('ROLE_PESQUISAR_PESSOA');
+  }
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ErroService } from '../core/erro.service';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA==',
@@ -11,7 +12,7 @@ const httpOptions = {
 
 @Injectable()
 export class AuthService {
-  urlOauth = 'http://localhost:8080/oauth/token';
+  urlOauth: string;
   jwtPayload: any;
   token: string;
   jwt: JwtHelperService = new JwtHelperService();
@@ -20,6 +21,7 @@ export class AuthService {
       private http: HttpClient,
       private erroServ: ErroService
     ) {
+      this.urlOauth = `${environment.apiUrl}/oauth/token`;
     }
 
   logar(usuario: string, senha: string): Promise<void> {

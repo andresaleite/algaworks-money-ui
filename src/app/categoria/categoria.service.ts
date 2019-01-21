@@ -3,18 +3,21 @@ import { Injectable } from '@angular/core';
 
 import { AuthService } from '../seguranca/auth.service';
 import { MoneyHttp } from '../seguranca/money-http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
-  urlPadrao = 'http://localhost:8080/pessoas';
+  urlPadrao: string;
   constructor(private http: MoneyHttp,
-    private auth: AuthService) { }
+    private auth: AuthService) {
+      this.urlPadrao = `${environment.apiUrl}/categorias`;
+    }
 
   listar(): Promise<any> {
-    return this.http.get('http://localhost:8080/categorias', {})
+    return this.http.get(this.urlPadrao, {})
     .toPromise()
     .then(resposta => {
       return resposta;

@@ -5,6 +5,7 @@ import * as moment from 'moment/moment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthService } from '../seguranca/auth.service';
 import { MoneyHttp } from '../seguranca/money-http';
+import { environment } from 'src/environments/environment.prod';
 
 
 
@@ -24,9 +25,11 @@ export class LancamentoService implements OnInit {
       {'Authorization': `Bearer ${this.auth.carregarToken().token}`,
     'Content-Type': 'application/json'})
   };
-  urlPadrao = 'http://localhost:8080/lancamentos';
+  urlPadrao: string;
   constructor(private http: MoneyHttp,
-    private auth: AuthService) { }
+    private auth: AuthService) {
+      this.urlPadrao = `${environment.apiUrl}/lancamentos`;
+    }
 
   ngOnInit() {
 

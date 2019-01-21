@@ -74,5 +74,8 @@ export class LancamentoPesquisaComponent implements OnInit {
     });
   }
 
+  permissaoRemoverLancamento() {
+    return !this.auth.temPermissao('ROLE_REMOVER_LANCAMENTO');
+  }
 
 }
