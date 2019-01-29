@@ -39,7 +39,6 @@ export function jwtOptionsFactory(authService: AuthService ) {
     FormsModule,
     SharedModule,
     SegurancaRoutingModule,
-    FormsModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,

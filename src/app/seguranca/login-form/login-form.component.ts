@@ -30,6 +30,5 @@ export class LoginFormComponent implements OnInit {
     this.authSevice.logar(this.email, this.senha).then(sucesso => {
       this.router.navigate(['/lancamentos']);
     }).catch(erro => this.erroHandle.handle(erro) );
-    this.senha = '';
   }
 }

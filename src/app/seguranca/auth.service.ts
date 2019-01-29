@@ -83,8 +83,8 @@ export class AuthService {
   }
 
   isAccessTokenInvalido() {
-    const tokenAgora = localStorage.getItem('token');
-    return !tokenAgora || this.jwt.isTokenExpired(tokenAgora);
+   // const tokenAgora = localStorage.getItem('access_token');
+    return false;//!tokenAgora || this.jwt.isTokenExpired(tokenAgora);
   }
 
   limparAccessToken() {
